@@ -13,7 +13,7 @@ auto func(const int& x, const int& y) -> int;
 int func(const int& x, const int& y);
 ```
 
-## 禁止省略 if / for statements 的花括号
+## 不省略 if / for statements 的花括号
 
 ```cpp
 // use
@@ -27,9 +27,9 @@ if (true)
 
 ## 调用
 
-禁止跨具名作用域调用。
+不可跨具名作用域调用。
 
-禁止隐式 `this`.
+不使用隐式 `this`.
 
 ```cpp
 namespace aimer::math {
@@ -83,7 +83,7 @@ private:
 };
 ```
 
-## 禁止将 class / struct 作命名空间使用
+## 不将 class / struct 作命名空间使用
 
 ```cpp
 // use
