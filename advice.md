@@ -1,34 +1,17 @@
-# Other style advice
+# 其他风格建议
 
-## Expressions
+## 命名
 
-Prefer to use Rust's expression oriented nature where possible;
-
-```rust
-// use
-let x = if y { 1 } else { 0 };
-// not
-let x;
-if y {
-    x = 1;
-} else {
-    x = 0;
-}
-```
-
-## Names
-
- * Types shall be `UpperCamelCase`,
- * Enum variants shall be `UpperCamelCase`,
- * Where acronyms are used in the above cases, only capitalize the first letter, e.g., `HttpRequest`.
- * Struct fields shall be `snake_case`,
- * Function and method names shall be `snake_case`,
- * Local variables shall be `snake_case`,
- * Macro names shall be `snake_case`,
- * Constants (`const`s and immutable `static`s) shall be `SCREAMING_SNAKE_CASE`.
- * When a name is forbidden because it is a reserved word (e.g., `crate`), use a
-   trailing underscore to make the name legal (e.g., `crate_`), or use raw
-   identifiers if possible.
+ * 类型 `UpperCamelCase`,
+ * 枚举类 `UpperCamelCase`,
+ * 在以上情况中，若使用缩写，则仅大写缩写单词的首字母 `HttpRequest`.
+ * 成员 `snake_case`,
+ * 函数 `snake_case`,
+ * 局部变量 `snake_case`,
+ * 
+ * 宏 `snake_case`,
+ * 全局常量 `SCREAMING_SNAKE_CASE`.
+ * 如果和关键字冲 (e.g., `namespace`), 连接一个下划线 (e.g., `namespace_`).
 
 ### Modules
 
