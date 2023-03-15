@@ -98,6 +98,8 @@ pub fn foo(/* 参数前的注释 */ x: T) {...}
 
 相比块注释 (`/** ... */`) 更倾向于行注释 (`///`)。
 
+---
+
 Prefer outer doc comments (`///` or `/** ... */`), only use inner doc comments
 (`//!` and `/*! ... */`) to write module-level or crate-level documentation.
 
