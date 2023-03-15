@@ -142,5 +142,5 @@ AMENT_IGNORE
 
 
 
-# ignore 新文件后，执行以下命令
+# ignore 新文件后, 执行以下命令
 # git rm -r --cached . && git add .

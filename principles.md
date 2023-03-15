@@ -1,47 +1,20 @@
-# 指导原则和理由
+## 非常重要的指南
 
-在设计风格指南时，风格团队试图遵循以下原则（大致按优先顺序排列）：
-
-* 可读性
-  - 阅读速度
-  - 防止误导
-  - 可访问性 - 适用于不同硬件环境下，包括非可视化环境
-  - 在编译器报错信息中的可读性
-
-* 美学
-  - sense of beauty
-  - 与现代编程语言保持一致
-
-* 细节
-  - 易于进行版本维护
-  - 尽可能兼容未来代码
-  - 增加代码密集度
-
-* 应用
-  - 规则易于手动实践（在最简编辑环境中）
-  - 规则易于自动实践（当可以使用 Clang-format 等其他工具时）
-  - 规则的一致性
-  - 保持风格规则的简并性
-
-## Overarching guidelines
-
-Prefer block indent over visual indent. E.g.,
+相比对齐缩进，更倾向于块缩进。E.g.,
 
 ```cpp
-// Block indent
+// 块缩进
 a_function_call(
     foo,
     bar,
 );
 
-// Visual indent
+// 对齐缩进
 a_function_call(foo,
                 bar);
 ```
 
-This makes for smaller diffs (e.g., if `a_function_call` is renamed in the above
-example) and less rightward drift.
+这样能减小代码修改时的 diff (e.g., if `a_function_call` 在上例中被重命名) 而且能防止右飘。
 
-Lists should have a trailing comma when followed by a newline, see the block
-indent example above. This choice makes moving code (e.g., by copy and paste)
-easier and makes smaller diffs.
+列表元素应尾随逗号，这样移动代码（比如：复制粘贴）更容易，而且减小代码修改造成的 diff。
+

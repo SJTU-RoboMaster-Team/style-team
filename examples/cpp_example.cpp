@@ -16,11 +16,23 @@ auto mutiple_lines_func(
     return x + y + z;
 }
 
-class AStrangeTypeName {};
+/*! 
+什么玩意 
+*/
+class AStrangeTypeName {
+private:
+    int member;
+    int member2;
+
+public:
+    int get_member2() {
+        return this->member2;
+    }
+};
 
 int so_strange = 2;
 
 auto main() -> i32 {
-    int unused = 0;
-    return 0;
+    AStrangeTypeName x; // 本行的注释
+    return y;
 }

@@ -27,13 +27,13 @@ if (true)
 
 ## 调用
 
-不可跨具名作用域调用。
-
-不使用隐式 `this`.
+除 std:: 外，不可跨具名作用域调用。
 
 ```cpp
 namespace aimer::math {
-auto func(const int& x, const int& y) -> int { return x + y; };
+auto func(const int& x, const int& y) -> int {  
+    return std::sin(x + y);  // ok
+};
 }
 
 namespace aimer::math::kalman {
@@ -46,7 +46,30 @@ auto test1() -> int {
     return func(2, 3);
 }
 }  // namespace aimer::math::kalman
+```
 
+如果在当前作用域需大量使用外部作用域，请采用 namespace 别名。
+
+```cpp
+#include "aimer/umt/umt.hpp"
+#include "aimer/math/kalman.hpp"
+
+namespace aimer::math::predictor {
+namespace umt = ::umt;
+namespace kalman = math::kalman;
+auto test0() {
+    umt::init();
+    kalman::KalmanFilter filter1;
+    // 如果未声明 namespace 别名，则规范写法为
+    ::umt::init();
+    math::kalman::KalmanFilter filter2;
+}
+}
+```
+
+不使用隐式 `this`.
+
+```cpp
 class A {
 public:
     A(const int& some);

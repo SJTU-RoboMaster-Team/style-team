@@ -1,150 +1,42 @@
-### Let statements
+### 定义和初始化
 
-There should be spaces after the `:` and on both sides of the `=` (if they are
-present). No space before the semi-colon.
+尽可能使用 `=` 初始化，当它不可使用或者造成类型名冗余时，使用“统一初始化方法” `Type pattern{expr};`。
 
 ```cpp
-// A comment.
-let pattern: Type = expr;
+// use
+std::vector<int> numbers = {1, 2, 3};
+// not
+std::vector<int> vec{1, 2, 3};
 
-let pattern;
-let pattern: Type;
-let pattern = expr;
+// use
+KalmanFilter filter1{0.01, 10};
+// not
+KalmanFilter filter2 = KalmanFilter(0.01, 10);
+KalmanFilter filter3(0.01, 10);
 ```
 
-If possible the declaration should be formatted on a single line. If this is not
-possible, then try splitting after the `=`, if the declaration can fit on two
-lines. The expression should be block indented.
+尽量在一行内定义完成。如果做不到，可以拆成两行。此时表达式应使用块缩进。
 
 ```cpp
-let pattern: Type =
+Type pattern =
     expr;
 ```
 
-If the first line does not fit on a single line, then split after the colon,
-using block indentation. If the type covers multiple lines, even after line-
-breaking after the `:`, then the first line may be placed on the same line as
-the `:`, subject to the [combining rules](https://github.com/cpp-lang-nursery/fmt-rfcs/issues/61) (WIP).
+### 语句中的宏
 
-
-```cpp
-let pattern:
-    Type =
-    expr;
-```
-
-e.g,
-
-```cpp
-let Foo {
-    f: abcd,
-    g: qwer,
-}: Foo<Bar> =
-    Foo { f, g };
-
-let (abcd,
-    defg):
-    Baz =
-{ ... }
-```
-
-If the expression covers multiple lines, if the first line of the expression
-fits in the remaining space, it stays on the same line as the `=`, the rest of the
-expression is not indented. If the first line does not fit, then it should start
-on the next lines, and should be block indented. If the expression is a block
-and the type or pattern cover multiple lines, then the opening brace should be
-on a new line and not indented (this provides separation for the interior of the
-block from the type), otherwise the opening brace follows the `=`.
-
-Examples:
-
-```cpp
-let foo = Foo {
-    f: abcd,
-    g: qwer,
-};
-
-let foo =
-    ALongName {
-        f: abcd,
-        g: qwer,
-    };
-
-let foo: Type = {
-    an_expression();
-    ...
-};
-
-let foo:
-    ALongType =
-{
-    an_expression();
-    ...    
-};
-
-let Foo {
-    f: abcd,
-    g: qwer,
-}: Foo<Bar> = Foo {
-    f: blimblimblim, 
-    g: blamblamblam,
-};
-
-let Foo {
-    f: abcd,
-    g: qwer,
-}: Foo<Bar> = foo(
-    blimblimblim,
-    blamblamblam,
-);
-```
-
-
-### Macros in statement position
-
-A macro use in statement position should use parentheses or square brackets as
-delimiters and should be terminated with a semi-colon. There should be no spaces
-between the name, `!`, the delimiters, or the `;`.
+语句中调用的宏应该在尾部加上分号。小括号两边都不应有空格。
 
 ```cpp
 // A comment.
-a_macro!(...);
+a_macro(...);
 ```
 
+### 语句中的表达式
 
-### Expressions in statement position
+表达式和分号之间不应有空格。
 
-There should be no space between the expression and the semi-colon.
-
-```
+```cpp
 <expr>;
 ```
 
-All expressions in statement position should be terminated with a semi-colon,
-unless they end with a block or are used as the value for a block.
-
-E.g.,
-
-```cpp
-{
-    an_expression();
-    expr_as_value()
-}
-
-return foo();
-
-loop {
-    break;
-}
-```
-
-Use a semi-colon where an expression has void type, even if it could be
-propagated. E.g.,
-
-```cpp
-fn foo() { ... }
-
-fn bar() {
-    foo();
-}
-```
+不应给 `return` 语句后的表达式加上括号。

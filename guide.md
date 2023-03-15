@@ -1,40 +1,32 @@
-# cpp Style Guide
+# C++ 代码风格指南
 
-## Motivation - why use a formatting tool?
+## 使用风格化工具的动机？🤔
 
-Formatting code is a mostly mechanical task which takes both time and mental
-effort. By using an automatic formatting tool, a programmer is relieved of
-this task and can concentrate on more important things.
+格式化代码其实是一个机械性的任务 🤖，但是人工实现又非常耗精力。
+程序员只要使用自动格式化工具就可以从这个任务中释放，专注于更重要的事情。
 
-Furthermore, by sticking to an established style guide (such as this one),
-programmers don't need to formulate ad hoc style rules, nor do they need to
-debate with other programmers what style rules should be used, saving time,
-communication overhead, and mental energy.
+此外，通过坚持既定的风格指南（就比如这个 😭），
+程序员不需要制定特别的风格规则，也不需要与其他程序员讨论应该使用什么风格规则，
+节省时间、精力和交流成本。
 
-Humans comprehend information through pattern matching. By ensuring that all
-cpp code has similar formatting, less mental effort is required to comprehend a
-new project, lowering the barrier to entry for new developers.
+人类要理解代码，往往是通过类似于模式匹配的过程。如果一份 C++ 代码拥有统一的风格，
+理解一个新项目的代码只需要更少的脑力，从而降低新开发者的进入门槛。
 
-Thus, there are productivity benefits to using a formatting tool (such as
-cppfmt), and even larger benefits by using a community-consistent formatting,
-typically by using a formatting tool's default settings.
+因此，使用格式化工具 (例如 Clang-Format) 能提高生产力。
+如果团队坚持使用一种风格，则会有更大的好处，
+想要达成此目标并不难，只要使用团队 `.clang-format, .clang-tidy` 的默认设置就可以了。
 
+## 格式化约定
 
-## Formatting conventions
+### 缩进和行宽
 
-### Indentation and line width
+* 使用空格，而不是 Tab。
+* 每级缩进使用 4 个空格（也就是说在纯字符串和注释之外的缩进都是 4 的倍数）
+* 行宽最大为 100
 
-* Use spaces, not tabs.
-* Each level of indentation must be 4 spaces (that is, all indentation
-  outside of string literals and comments must be a multiple of four).
-* The maximum width for a line is 100 characters.
-* A tool should be configurable for all three of these variables.
+### 空行
 
-
-### Blank lines
-
-Separate items and statements by either zero or one blank lines (i.e., one or
-two newlines). E.g,
+不同的语句之间要么不空行，要么空一行。E.g,
 
 ```cpp
 fn foo() {
@@ -48,54 +40,37 @@ fn bar() {}
 fn baz() {}
 ```
 
-Formatting tools should make the bounds on blank lines configurable: there
-should be separate minimum and maximum numbers of newlines between both
-statements and (top-level) items (i.e., four options). As described above, the
-defaults for both statements and items should be minimum: 1, maximum: 2.
-
-
 ### [Module-level items](items.md)
 ### [Statements](statements.md)
 ### [Expressions](expressions.md)
 ### [Types](types.md)
 
 
-### Comments
+### 注释
 
-The following guidelines for comments are recommendations only, a mechanical
-formatter might skip formatting of comments.
+格式化工具可能会跳过以下部分要求。
 
-Prefer line comments (`//`) to block comments (`/* ... */`).
+相较于块注释 (`/* ... */`) 更倾向于行注释 (`//`)。
 
-When using line comments there should be a single space after the opening sigil.
+当使用行注释时，开头标记后应该有一个空格。
 
-When using single-line block comments there should be a single space after the
-opening sigil and before the closing sigil. Multi-line block comments should
-have a newline after the opening sigil and before the closing sigil.
+使用行内块注释时，开符号后和闭符号前均有一个空格。多行块注释，开符号后和闭符号前均有一个新行。
 
-Prefer to put a comment on its own line. Where a comment follows code, there
-should be a single space before it. Where a block comment is inline, there
-should be surrounding whitespace as if it were an identifier or keyword. There
-should be no trailing whitespace after a comment or at the end of any line in a
-multi-line comment. Examples:
+相比其他，更倾向于行尾评论。行尾平均之前带有 1 个空格。行内块注释周围的空格
+应该把注释块当作关键字一样处理。尾随注释和多行注释任意一行的末尾不应有尾随空格。
 
 ```cpp
-// A comment on an item.
-struct Foo { ... }
+// 条目上方的注释
+struct Foo { ... };
 
-fn foo() {} // A comment after an item.
+fn foo() {} // 条目尾随注释
 
-pub fn foo(/* a comment before an argument */ x: T) {...}
+pub fn foo(/* 参数前的注释 */ x: T) {...}
 ```
 
-Comments should usually be complete sentences. Start with a capital letter, end
-with a period (`.`). An inline block comment may be treated as a note without
-punctuation.
+注释应是完整的句子，行内块注释则不用。
 
-Source lines which are entirely a comment should be limited to 80 characters
-in length (including comment sigils, but excluding indentation) or the maximum
-width of the line (including comment sigils and indentation), whichever is
-smaller:
+纯注释行的注释宽度不大于 80，且算上缩进总宽度不超过 100.
 
 ```cpp
 // This comment goes up to the ................................. 80 char margin.
@@ -119,14 +94,20 @@ smaller:
 }
 ```
 
-#### Doc comments
+#### 注释文档
 
-Prefer line comments (`///`) to block comments (`/** ... */`).
+相比块注释 (`/** ... */`) 更倾向于行注释 (`///`)。
 
 Prefer outer doc comments (`///` or `/** ... */`), only use inner doc comments
 (`//!` and `/*! ... */`) to write module-level or crate-level documentation.
 
+
+更喜欢外部文档注释（`///` 或 `/**... */`），只使用内部文档注释
+(`//!` 和 `/*! ... */`) 编写模块级或 crate 级文档。
+
 Doc comments should come before attributes.
+
+文档注释应该在属性之前。
 
 ### Attributes
 
@@ -153,6 +134,31 @@ There must only be a single `derive` attribute. Note for tool authors: if
 combining multiple `derive` attributes into a single attribute, the ordering of
 the derived names should be preserved. E.g., `#[derive(bar)] #[derive(foo)]
 struct Baz;` should be formatted to `#[derive(bar, foo)] struct Baz;`.
+
+### 属性
+
+将每个属性放在自己的行中，缩进到项目的级别。
+在内部属性 (`#!`) 的情况下，将其缩进到内部的级别
+该项目。尽可能使用外部属性。
+
+对于带有参数列表的属性，格式类似于函数。
+
+```cpp
+#[代表(C)]
+#[foo(foo, bar)]
+结构 CRepr {
+    #![代表(C)]
+    x: f32,
+    是：f32，
+}
+```
+
+对于带等号的属性，和之前应该有一个空格
+在 `=` 之后，例如 `#[foo = 42]`。
+必须只有一个 `derive` 属性。工具作者注意事项：如果
+将多个“派生”属性组合成一个属性，顺序
+应保留衍生名称。例如，`#[derive(bar)] #[derive(foo)]
+struct Baz;` 的格式应为 `#[derive(bar, foo)] struct Baz;`。
 
 ### *small* items
 
