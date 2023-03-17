@@ -34,5 +34,7 @@ int so_strange = 2;
 
 auto main() -> i32 {
     AStrangeTypeName x; // 本行的注释
-    return y;
+    int count = 0;
+    for (; count < 10; ++count) {}
+    return 0;
 }

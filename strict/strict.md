@@ -4,15 +4,6 @@
 
 使用 `.cpp` 和 `.hpp` 作为 C++ 文件后缀。
 
-## 函数后置返回类型
-
-```cpp
-// use
-auto func(const int& x, const int& y) -> int;
-// not 
-int func(const int& x, const int& y);
-```
-
 ## 不省略 if / for statements 的花括号
 
 ```cpp
@@ -31,18 +22,19 @@ if (true)
 
 ```cpp
 namespace aimer::math {
-auto func(const int& x, const int& y) -> int {  
+int func(const int& x, const int& y) {  
     return std::sin(x + y);  // ok
 };
 }
 
 namespace aimer::math::kalman {
+
 // use
-auto test0() -> int {
+int test0() {
     return math::func(2, 3);
 }
 // not
-auto test1() -> int {
+int test1() {
     return func(2, 3);
 }
 }  // namespace aimer::math::kalman
@@ -53,14 +45,17 @@ auto test1() -> int {
 ```cpp
 #include "aimer/umt/umt.hpp"
 #include "aimer/math/kalman.hpp"
+// 在 umt 作用域下有 init() 函数
+// 在 aimer::math::kalman 下有 KalmanFilter 类
 
 namespace aimer::math::predictor {
 namespace umt = ::umt;
 namespace kalman = math::kalman;
-auto test0() {
+
+void test0() {
     umt::init();
     kalman::KalmanFilter filter1;
-    // 如果未声明 namespace 别名，则规范写法为
+    // 如果未声明上述 namespace 别名，则规范写法为
     ::umt::init();
     math::kalman::KalmanFilter filter2;
 }
@@ -91,16 +86,16 @@ A::A(const int& some) {
 struct A {
 public:
     A() {}
-    Kalman filter;
+    Kalman filter; // 由于该公共变量的存在，不可使用 class
 private:
     int id;
 };
 
 class SomeClass {
 public:
-    auto interface1() -> int { return 0; }
-    auto interface2() { return; }
-    auto get_id() -> int { return this->id; }
+    int interface1() { return 0; }
+    void interface2() {}
+    int get_id() { return this->id; }
 private:
     int id;
 };
@@ -111,6 +106,7 @@ private:
 ```cpp
 // use
 namespace solve {
+
 struct Data {
     int id;
     int pos;
@@ -121,6 +117,7 @@ struct Solver {
         return data.pos * 2;
     }
 };
+
 }  // namespace solver
 
 // not
