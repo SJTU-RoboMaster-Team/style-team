@@ -18,12 +18,12 @@ if (true)
 
 ## 调用
 
-除 std:: 外，不可跨具名作用域调用。
+除 std:: 外，不可跨具名作用域 (named scope) 调用。
 
 ```cpp
 namespace aimer::math {
 int func(const int& x, const int& y) {  
-    return std::sin(x + y);  // ok
+    return std::sin(x + y); // ok
 };
 }
 
@@ -37,7 +37,7 @@ int test0() {
 int test1() {
     return func(2, 3);
 }
-}  // namespace aimer::math::kalman
+} // namespace aimer::math::kalman
 ```
 
 如果在当前作用域需大量使用外部作用域，请采用 namespace 别名。
@@ -118,7 +118,7 @@ struct Solver {
     }
 };
 
-}  // namespace solver
+} // namespace solver
 
 // not
 struct Solver {
@@ -138,6 +138,6 @@ struct Solver {
 内部角度运算用弧度制。显式存储的角度常量用角度制。无后缀的类型采用国际单位。
 
 ```cpp
-const double SOME_ANGLE = math::deg_to_rad(45);  // 角度制转弧度制
+const double SOME_ANGLE = math::deg_to_rad(45); // 角度制转弧度制
 const double SIN_RESULT = std::sin(SOME_ANGLE);
 ```

@@ -3,17 +3,16 @@
 ## 使用风格化工具的动机？🤔
 
 格式化代码其实是一个机械性的任务 🤖，但是人工实现又非常耗精力。
-程序员只要使用自动格式化工具就可以从这个任务中释放，专注于更重要的事情。
+格式化工具可以一键实现这个目的，解放程序员的生产力 😎。
 
-此外，通过坚持既定的风格指南（就比如这个 😭），
-程序员不需要制定特别的风格规则，也不需要与其他程序员讨论应该使用什么风格规则，
-节省时间、精力和交流成本。
+此外，如果坚持既定的风格指南（就比如这个 😭），
+程序员们就不需要花时间讨论风格，从而节省精力。
 
-人类要理解代码，往往是通过类似于模式匹配的过程。如果一份 C++ 代码拥有统一的风格，
-理解一个新项目的代码只需要更少的脑力，从而降低新开发者的进入门槛。
+人类往往以模式匹配的方式来理解代码。所以如果一份 C++ 代码拥有统一的风格，
+理解一个新项目的代码就只需要更少的脑力，降低新开发者的进入门槛。
 
-因此，使用格式化工具 (例如 Clang-Format) 能提高生产力。
-如果团队坚持使用一种风格，则会有更大的好处，
+由此观之，使用格式化工具 (例如 Clang-Format) 能提高生产力。
+如果团队坚持使用一种风格，就会有更大好处，
 想要达成此目标并不难，只要使用团队 `.clang-format, .clang-tidy` 的默认设置就可以了。
 
 ## 格式化约定
@@ -63,9 +62,11 @@ void baz() {}
 // 条目上方的注释
 struct Foo { ... };
 
-fn foo() {} // 条目尾随注释
+void foo() {} // 条目尾随注释
 
-pub fn foo(/* 参数前的注释 */ x: T) {...}
+namespace {
+void foo(/* 参数前的注释 */ x: T) {...}
+}
 ```
 
 注释应是完整的句子，行内块注释则不用。
@@ -98,101 +99,53 @@ pub fn foo(/* 参数前的注释 */ x: T) {...}
 
 相比块注释 (`/** ... */`) 更倾向于行注释 (`///`)。
 
----
+多写文档注释 (`///` or `/** ... */`)，而非实现注释 (`//!` and `/*! ... */`)，
+实现注释多用于编写模块级文档。
 
-Prefer outer doc comments (`///` or `/** ... */`), only use inner doc comments
-(`//!` and `/*! ... */`) to write module-level or crate-level documentation.
-
-
-更喜欢外部文档注释（`///` 或 `/**... */`），只使用内部文档注释
-(`//!` 和 `/*! ... */`) 编写模块级或 crate 级文档。
-
-Doc comments should come before attributes.
-
-文档注释应该在属性之前。
-
-### Attributes
-
-Put each attribute on its own line, indented to the level of the item.
-In the case of inner attributes (`#!`), indent it to the level of the inside of
-the item. Prefer outer attributes, where possible.
-
-For attributes with argument lists, format like functions.
-
-```cpp
-#[repr(C)]
-#[foo(foo, bar)]
-struct CRepr {
-    #![repr(C)]
-    x: f32,
-    y: f32,
-}
-```
-
-For attributes with an equal sign, there should be a single space before and
-after the `=`, e.g., `#[foo = 42]`.
-
-There must only be a single `derive` attribute. Note for tool authors: if
-combining multiple `derive` attributes into a single attribute, the ordering of
-the derived names should be preserved. E.g., `#[derive(bar)] #[derive(foo)]
-struct Baz;` should be formatted to `#[derive(bar, foo)] struct Baz;`.
+文档注释应该写在属性之前。
 
 ### 属性
 
-将每个属性放在自己的行中，缩进到项目的级别。
-在内部属性 (`#!`) 的情况下，将其缩进到内部的级别
-该项目。尽可能使用外部属性。
+每个属性独占一行，与其修饰的条目保持相同缩进等级。
 
-对于带有参数列表的属性，格式类似于函数。
+尽可能使用外部属性。
+
+有参数的属性按照函数格式化。
 
 ```cpp
-#[代表(C)]
-#[foo(foo, bar)]
-结构 CRepr {
-    #![代表(C)]
-    x: f32,
-    是：f32，
-}
+[[deprecated("Use NewCRepr instead.")]]
+struct CRepr {
+    float x;
+    float y;
+
+    [[nodiscard]]
+    float func() {}
+};
 ```
 
-对于带等号的属性，和之前应该有一个空格
-在 `=` 之后，例如 `#[foo = 42]`。
-必须只有一个 `derive` 属性。工具作者注意事项：如果
-将多个“派生”属性组合成一个属性，顺序
-应保留衍生名称。例如，`#[derive(bar)] #[derive(foo)]
-struct Baz;` 的格式应为 `#[derive(bar, foo)] struct Baz;`。
+### *小的* 条目
 
-### *small* items
-
-In many places in this guide we specify that a formatter may format an item
-differently if it is *small*, for example struct literals:
+在本指南中，对于小条目，我们会采用不同的格式化方式。例如，对于结构体的列表初始化：
 
 ```cpp
-// Normal formatting
+// 常规格式化 🤔
 Foo {
-    f1: an_expression,
-    f2: another_expression(),
+    an_expression,
+    another_expression(),
 }
 
-// *small* formatting
-Foo { f1, f2 }
+// *小项目* 格式化 😱
+Foo { 1, 2 };
 ```
 
-We leave it to individual tools to decide on exactly what *small* means. In
-particular, tools are free to use different definitions in different
-circumstances.
+我们把 *小* 的界定权留给格式化工具。格式化工具可以在不同的环境中使用不同的定义。
 
-Some suitable heuristics are the size of the item (in characters) or the
-complexity of an item (for example, that all components must be simple names,
-not more complex sub-expressions). For more discussion on suitable heuristics,
-see [this issue](https://github.com/cpp-lang-nursery/fmt-rfcs/issues/47).
+有一些因素是不错的参考，比如条目的名字长度和复杂性（子属性无子表达式）。
 
-Tools should give the user an option to ignore such heuristics and always use
-the normal formatting.
+格式化工具应允许用户忽略这些因素，从而总是采用常规格式化。
 
+## [非格式建议](advice.md)
 
-## [Non-formatting conventions](advice.md)
+## [CMake 格式化要求](cmake.md)
 
-## [Cargo.toml conventions](cargo.md)
-
-## [Principles used for deciding these guidelines](principles.md)
+## [一些重要的原则](principles.md)

@@ -1,64 +1,50 @@
-## Expressions
+## 表达式
+### 表达式块
 
-### Blocks
-
-A block expression should have a newline after the initial `{` and before the
-terminal `}`. Any qualifier before the block (e.g., `unsafe`) should always be
-on the same line as the opening brace, and separated with a single space. The
-contents of the block should be block indented:
+块状表达式在开花括号 `{` 之后和闭花括号 `}` 之前都应有 newline 符。块前的任何限定符都应与 `{`在同一行，且间隔一个空格。块中的内容应使用块缩进。
 
 ```cpp
-fn block_as_stmt() {
+void block_as_stmt() {
     a_call();
 
     {
         a_call_inside_a_block();
 
         // a comment in a block
-        the_value
+        return the_value;
     }
 }
 
-fn block_as_expr() {
-    let foo = {
+void block_as_expr() {
+    auto foo = [&]() {
         a_call_inside_a_block();
 
         // a comment in a block
-        the_value
-    };
-}
-
-fn unsafe_block_as_stmt() {
-    a_call();
-
-    unsafe {
-        a_call_inside_a_block();
-
-        // a comment in a block
-        the_value
-    }
+        return the_value;
+    }();
 }
 ```
 
-If a block has an attribute, it should be on its own line:
+在块中的预处理指令的缩进应和其他表达式一致
 
 ```cpp
-fn block_as_stmt() {
-    #[an_attribute]
+void block_as_stmt() {
+    #ifdef a_definition
     {
-        #![an_inner_attribute]
+        #define another_definition
 
         // a comment in a block
-        the_value
+        #undef another_definition
     }
+    #endif
 }
 ```
 
-Avoid writing comments on the same line as the braces.
+不要在花括号的同一行中写注释。
 
-An empty block should be written as `{}`.
+空块的写法是 `{}`。
 
-A block may be written on a single line if:
+块状表达式在以下情况下可以只占一行：
 
 * it is either used in expression position (not statement position) or is an
   unsafe block in statement position,

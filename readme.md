@@ -1,3 +1,5 @@
+![](example.jpg)
+
 # 代码规范 RFCs
 
 本仓库用于讨论和确定 C++ 的代码规范，使用 Clang-Format 和 Clang-Tidy 来自动化执行风格修正。您可以在 `text` 文件夹中提交意见，并且为 formatting tools 提供规范。
