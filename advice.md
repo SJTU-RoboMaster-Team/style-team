@@ -12,3 +12,24 @@
  * 宏 `UPPER_CASE`，
  * 全局常量 `UPPER_CASE`，
 * 如果和关键字冲突 (e.g., `namespace`)，就连接一个下划线 (e.g., `namespace_`)。
+
+## 单位
+
+内部角度运算用弧度制。显式存储的角度常量用角度制。无后缀的类型采用国际单位。
+
+```cpp
+const double SOME_ANGLE = math::deg_to_rad(45); // 角度制转弧度制
+const double SIN_RESULT = std::sin(SOME_ANGLE);
+```
+
+## 不省略 if / for statements 的花括号
+
+```cpp
+// use
+if (true) {
+    continue;
+}
+// not
+if (true)
+    continue;
+```

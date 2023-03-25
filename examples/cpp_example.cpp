@@ -38,6 +38,10 @@ private:
     int member2;
 };
 
+int new_func(int a, int b, int c) {
+    return 2;
+}
+
 struct Foo {
     float a;
     float b;
@@ -58,7 +62,6 @@ int main() {
         foo.b = 2;
     }
 
-    auto lambda_exp = []() { return 2; };
-
+    Foo f = Foo { 1, 2, 3 };
     return foo.a;
 }

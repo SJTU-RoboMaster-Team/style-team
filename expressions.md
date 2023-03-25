@@ -1,5 +1,5 @@
 ## 表达式
-### 表达式块
+### 块
 
 块状表达式在开花括号 `{` 之后和闭花括号 `}` 之前都应有 newline 符。块前的任何限定符都应与 `{`在同一行，且间隔一个空格。块中的内容应使用块缩进。
 
@@ -44,218 +44,74 @@ void block_as_stmt() {
 
 空块的写法是 `{}`。
 
-块状表达式在以下情况下可以只占一行：
+块在同时满足以下条件的情况下可以只占一行：
 
-* it is either used in expression position (not statement position) or is an
-  unsafe block in statement position,
-* it contains a single-line expression and no statements, and
-* it contains no comments
+* 块以 lambda 表达式而非语句的形式出现
+* 其中包含单行语句
+* 其中不包含注释
 
-A single line block should have spaces after the opening brace and before the
-closing brace.
+单行块状表达式在开花括号前喝闭花括号后都应有一个空格。
 
-Examples:
+例如：
 
 ```cpp
-fn main() {
-    // Single line
-    let _ = { a_call() };
-    let _ = unsafe { a_call() };
+void func() {
+    // 单行
+    int cnt0 = []() { return 2; }();
 
-    // Not allowed on one line
-    // Statement position.
+    // 以语句形式出现时
     {
-        a_call()
-    }
-
-    // Contains a statement
-    let _ = {
-        a_call();
-    };
-    unsafe {
         a_call();
     }
 
-    // Contains a comment
-    let _ = {
-        // A comment
-    };
-    let _ = {
-        // A comment
-        a_call()
-    };
+    // 包含注释
+    int cnt1 = [&]() {
+        // comment
+        return 2;
+    }();
 
-    // Multiple lines
-    let _ = {
-        a_call();
-        another_call()
-    };
-    let _ = {
-        a_call(
+    // 包含多行语句
+    int cnt2 = [&]() {
+        if (cnt0 != 2) {
+            return 3;
+        } else {
+            return 4;
+        }
+    }();
+    int cnt3 = [&](){
+        return a_call(
             an_argument,
-            another_arg,
-        )
-    };
+            another_arg
+        );
+    }();
 }
 ```
 
+### 列表初始化
 
-### Closures
+如果初始化列表是*小*的，则它可以放在一行。否则，初始化成员应该有自己的块缩进。多行初始化列表的最后一个参数应有尾随逗号。
 
-Don't put any extra spaces before the first `|` (unless the closure is prefixed
-by `move`); put a space between the second `|` and the expression of the
-closure. Between the `|`s, you should use function definition syntax; however,
-elide types where possible.
-
-Use closures without the enclosing `{}`, if possible. Add the `{}` when you have
-a return type, when there are statements, when there are comments inside the
-closure, or when the body expression is a control-flow expression that spans
-multiple lines. If using braces, follow the rules above for blocks. Examples:
+开花括号 `{` 之前应有一个空格。在单行初始化列表中，开花括号后和闭花括号前需有一个空格。
 
 ```cpp
-|arg1, arg2| expr
-
-move |arg1: i32, arg2: i32| -> i32 {
-    expr1;
-    expr2
-}
-
-|| Foo {
+Foo f1 = Foo { 1, 2, 3 };
+Foo f2 = Foo {
     field1,
-    field2: 0,
-}
-
-|| {
-    if true {
-        blah
-    } else {
-        boo
-    }
-}
-
-|x| unsafe {
-    expr
-}
-```
-
-
-### Struct literals
-
-If a struct literal is *small* it may be formatted on a single line. If not,
-each field should be on its own block-indented line. There should be a
-trailing comma in the multi-line form only. There should be a space after the
-colon only.
-
-There should be a space before the opening brace. In the single-line form there
-should be spaces after the opening brace and before the closing brace.
-
-```cpp
-Foo { field1, field2: 0 }
-let f = Foo {
-    field1,
-    field2: an_expr,
+    an_expr,
 };
 ```
 
-Functional record update syntax is treated like a field, but it must never have
-a trailing comma. There should be no space after `..`.
+### 数组访问
+
+方括号两边不加空格，尽量避免换行。在目标表达式和开括号之间不要空行。
+如果下标表达式有多行，应使用块缩进，而且开括号之后和闭括号之前应换行。
+不过要避免多行的下标表达式。
+
+例如：
 
 ```cpp
-let f = Foo {
-    field1,
-    ..an_expr
-};
-```
-
-
-### Tuple literals
-
-Use a single-line form where possible. There should not be spaces around the
-parentheses. Where a single-line form is not possible, each element of the tuple
-should be on its own block-indented line and there should be a trailing comma.
-
-```cpp
-(a, b, c)
-
-let x = (
-    a_long_expr,
-    another_very_long_expr,
-);
-```
-
-
-### Tuple struct literals
-
-There should be no space between the identifier and the opening parenthesis.
-Otherwise, follow the rules for tuple literals, e.g., `Foo(a, b)`.
-
-
-### Enum literals
-
-Follow the formatting rules for the various struct literals. Prefer using the
-name of the enum as a qualifying name, unless the enum is in the prelude. E.g.,
-
-```cpp
-Foo::Bar(a, b)
-Foo::Baz {
-    field1,
-    field2: 1001,
-}
-Ok(an_expr)
-```
-
-
-### Array literals
-
-For simple array literals, avoid line breaking, no spaces around square
-brackets, contents of the array should be separated by commas and spaces. If
-using the repeating initialiser, there should be a space after the semicolon
-only. Apply the same rules if using the `vec!` or similar macros (always use
-square brackets here). Examples:
-
-```cpp
-fn main() {
-    [1, 2, 3];
-    vec![a, b, c, d];
-    let a = [42; 10];
-}
-```
-
-If a line must be broken, prefer breaking only after the `;`, if possible.
-Otherwise, follow the rules below for function calls. In any case, the contents
-of the initialiser should be block indented and there should be line breaks
-after the opening bracket and before the closing bracket:
-
-```cpp
-fn main() {
-    [
-        a_long_expression();
-        1234567890
-    ]
-    let x = [
-        an_expression,
-        another_expression,
-        a_third_expression,
-    ];
-}
-```
-
-
-### Array accesses, indexing, and slicing.
-
-No spaces around the square brackets, avoid breaking lines if possible, never
-break a line between the target expression and the opening bracket. If the
-indexing expression covers multiple lines, then it should be block indented and
-there should be newlines after the opening brackets and before the closing
-bracket. However, this should be avoided where possible.
-
-Examples:
-
-```cpp
-fn main() {
-    foo[42];
-    &foo[..10];
-    bar[0..100];
+void func() {
+    foo[10];
     foo[4 + 5 / bar];
     a_long_target[
         a_long_indexing_expression
@@ -263,27 +119,19 @@ fn main() {
 }
 ```
 
-### Unary operations
+### 一元运算符
 
-Do not include a space between a unary op and its operand (i.e., `!x`, not
-`! x`). However, there must be a space after `&mut`. Avoid line-breaking
-between a unary operator and its operand.
+一元运算符和操作数之间不应有空格（即 `!x` 而非 `! x`），避免一元运算符和操作数之间换行。
 
-### Binary operations
+### 二元运算符
 
-Do include spaces around binary ops (i.e., `x + 1`, not `x+1`) (including `=`
-and other assignment operators such as `+=` or `*=`).
+二元运算符和操作数之间应有空格。（即 `x + 1` 而非 `x+1`）（包括 `=` 和其他赋值运算符，例如 `+=` 或 `*=`）。
 
-For comparison operators, because for `T op U`, `&T op &U` is also implemented:
-if you have `t: &T`, and `u: U`, prefer `*t op u` to `t op &u`. In general,
-within expressions, prefer dereferencing to taking references.
+大方使用括号，不要因为运算符优先级就省略括号（比如，
+使用 `(a && b) || (c && d)` 而非 `a && b || c && d`，虽然他们表达的意思一致）。格式化工具不可添加或移除括号。
+不要使用括号来表明优先级。
 
-Use parentheses liberally, do not necessarily elide them due to precedence.
-Tools should not automatically insert or remove parentheses. Do not use spaces
-to indicate precedence.
-
-If line-breaking, put the operator on a new line and block indent. Put each 
-sub-expression on its own line. E.g.,
+如果表达式有多行，把运算符放在后一行，并且使用块缩进。各个子表达式独占一行。例如：
 
 ```cpp
 foo_bar
@@ -293,125 +141,70 @@ foo_bar
     + whatever
 ```
 
-Prefer line-breaking at an assignment operator (either `=` or `+=`, etc.) rather
-than at other binary operators.
+在赋值运算符（`=` 或 `+=` 等）处换行比在其他运算符处换行更好。
 
-### Control flow
+### 控制流
 
-Do not include extraneous parentheses for `if` and `while` expressions.
+如果能增强可读性，可以在数学表达式和逻辑表达式中加上额外的括号（`(x * 15) + (y * 20)` 挺好的）。
 
-```cpp
-if true {
-}
-```
+### 函数调用
 
-is better than
+不要在函数名和开小括号之间加空格。
 
-```cpp
-if (true) {
-}
-```
+不要在参数和其尾随的逗号之间加空格。
 
-Do include extraneous parentheses if it makes an arithmetic or logic expression
-easier to understand (`(x * 15) + (y * 20)` is fine)
+在参数前的逗号和参数之间加空格。
 
-### Function calls
+调用尽量写成单行的。
 
-Do not put a space between the function name, and the opening parenthesis.
+#### 单行调用
 
-Do not put a space between an argument, and the comma which follows.
-
-Do put a space between an argument, and the comma which precedes it.
-
-Prefer not to break a line in the callee expression.
-
-#### Single-line calls
-
-Do not put a space between the function name and open paren, between the open
-paren and the first argument, or between the last argument and the close paren.
-
-Do not put a comma after the last argument.
+函数名与开括号，开括号和首个参数，最后一个参数和闭括号之间不要有空格。
 
 ```cpp
 foo(x, y, z)
 ```
 
-#### Multi-line calls
+#### 多行调用
 
-If the function call is not *small*, it would otherwise over-run the max width,
-or any argument or the callee is multi-line, then the call should be formatted
-across multiple lines. In this case, each argument should be on its own
-block-indented line, there should be a newline after the opening parenthesis
-and before the closing parenthesis, and there should be a trailing comma. E.g.,
+若函数不是*小*的，或者它会超出行宽限制，或者任何参数或参数的调用是多行的，则该调用应格式化为多行的。
+该情况下，每个参数独占块缩进的单行。开括号后闭括号前应换行。例如，
 
 ```cpp
 a_function_call(
     arg1,
-    a_nested_call(a, b),
+    a_nested_call(a, b)
 )
 ```
 
 
-### Method calls
+### 方法调用
 
-Follow the function rules for calling.
+和函数调用保持一致。
 
-Do not put any spaces around the `.`.
+在 `.` 两边不要有空格。
 
 ```cpp
 x.foo().bar().baz(x, y, z);
 ```
 
 
-### Macro uses
+### 宏调用
 
-Macros which can be parsed like other constructs should be formatted like those
-constructs. For example, a macro use `foo!(a, b, c)` can be parsed like a
-function call (ignoring the `!`), therefore it should be formatted following the
-rules for function calls.
-
-#### Special case macros
-
-Macros which take a format string and where all other arguments are *small* may
-be formatted with arguments before and after the format string on a single line
-and the format string on its own line, rather than putting each argument on its
-own line. For example,
-
-```cpp
-println!(
-    "Hello {} and {}",
-    name1, name2,
-);
-
-assert_eq!(
-    x, y,
-    "x and y were not equal, see {}",
-    reason,
-);
-```
-
-
-### Casts (`as`)
-
-Put spaces before and after `as`:
-
-```cpp
-let cstr = "Hi\0" as *const str as *const [u8] as *const std::os::raw::c_char;
-```
-
+如果宏可以像其他结构一样解析，则像其他结构一样格式化。例如 `FOO(a, b, c)` 可以被
+解析为一个函数调用（除了命名风格不同），所以它按照函数调用一样格式化。
 
 ### Chains of fields and method calls
 
-A chain is a sequence of field accesses and/or method calls. A chain may also
-include the try operator ('?'). E.g., `a.b.c().d` or `foo?.bar().baz?`.
+### 域和方法调用链
 
-Prefer formatting on one line if possible, and the chain is *small*. If
-formatting on multiple lines, each field access or method call in the chain
-should be on its own line with the line-break before the `.` and after any `?`.
-Each line should be block-indented. E.g.,
+调用链由域访问（`::`）和方法调用（`. 或 ->`）构成。
+
+尽量写在单行内。如果需要写成多行，则所有元素应该独占一行，且以 `.` 作为新行的开头。
+每行都应该是块缩进的。例如：
 
 ```cpp
-let foo = bar
+int foo = bar
     .baz?
     .qux();
 ```

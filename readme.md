@@ -1,4 +1,4 @@
-![](example.jpg)
+![](example.png)
 
 # 代码规范 RFCs
 

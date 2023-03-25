@@ -1,7 +1,7 @@
 /// Author: void_ccc
 /// This is ...
-#ifndef EXAMPLES_EVENT_LOOP_EVENT_LOOP_HPP_
-#define EXAMPLES_EVENT_LOOP_EVENT_LOOP_HPP_
+#ifndef EXAMPLES_EVENT_LOOP_EVENT_LOOP_HPP
+#define EXAMPLES_EVENT_LOOP_EVENT_LOOP_HPP
 
 #include <vector>
 
@@ -42,4 +42,4 @@ private:
 
 } // namespace my_namespace
 
-#endif // EXAMPLES_EVENT_LOOP_EVENT_LOOP_HPP_
+#endif // EXAMPLES_EVENT_LOOP_EVENT_LOOP_HPP

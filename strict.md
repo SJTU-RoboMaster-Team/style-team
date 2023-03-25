@@ -1,20 +1,10 @@
-# 严格风格建议
+以下风格可以增加您代码的可读性，但出于麻烦和不可自动化实现等原因，您可以不遵循以下建议。
+但是我们仍然建议您阅读这些建议。
 
 ## 文件后缀
 
 使用 `.cpp` 和 `.hpp` 作为 C++ 文件后缀。
 
-## 不省略 if / for statements 的花括号
-
-```cpp
-// use
-if (true) {
-    continue;
-}
-// not
-if (true)
-    continue;
-```
 
 ## 调用
 
@@ -31,6 +21,7 @@ namespace aimer::math::kalman {
 
 // use
 int test0() {
+    // 您需要保证最前缀 "math" 出现在您的面包屑中
     return math::func(2, 3);
 }
 // not
@@ -50,12 +41,13 @@ int test1() {
 
 namespace aimer::math::predictor {
 namespace umt = ::umt;
-namespace kalman = math::kalman;
 
 void test0() {
+    namespace kalman = math::kalman;
+
     umt::init();
     kalman::KalmanFilter filter1;
-    // 如果未声明上述 namespace 别名，则规范写法为
+    // 如果未声明上述 namespace 别名，则保持可读性的写法为：
     ::umt::init();
     math::kalman::KalmanFilter filter2;
 }
@@ -131,13 +123,4 @@ struct Solver {
         return data.pos * 2;
     }
 };
-```
-
-## 单位
-
-内部角度运算用弧度制。显式存储的角度常量用角度制。无后缀的类型采用国际单位。
-
-```cpp
-const double SOME_ANGLE = math::deg_to_rad(45); // 角度制转弧度制
-const double SIN_RESULT = std::sin(SOME_ANGLE);
 ```

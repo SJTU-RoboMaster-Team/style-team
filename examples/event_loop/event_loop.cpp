@@ -40,7 +40,7 @@ IntVector EventLoop::really_long_function_name(
             assert(false);
         }
     }
-    return {num_entries};
+    return { num_entries };
 }
 
 } // namespace my_namespace
