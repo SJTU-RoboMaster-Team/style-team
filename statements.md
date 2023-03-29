@@ -4,12 +4,12 @@
 
 ```cpp
 // use
-std::vector<int> numbers = {1, 2, 3};
+std::vector<int> numbers = { 1, 2, 3 };
 // not
-std::vector<int> vec{1, 2, 3};
+std::vector<int> vec { 1, 2, 3 };
 
 // use
-KalmanFilter filter1{0.01, 10};
+KalmanFilter filter1 { 0.01, 10 };
 // not
 KalmanFilter filter2 = KalmanFilter(0.01, 10);
 KalmanFilter filter3(0.01, 10);

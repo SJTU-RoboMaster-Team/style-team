@@ -52,7 +52,7 @@ void block_as_stmt() {
 
 单行块状表达式在开花括号前喝闭花括号后都应有一个空格。
 
-例如：
+例如，
 
 ```cpp
 void func() {
@@ -107,7 +107,7 @@ Foo f2 = Foo {
 如果下标表达式有多行，应使用块缩进，而且开括号之后和闭括号之前应换行。
 不过要避免多行的下标表达式。
 
-例如：
+例如，
 
 ```cpp
 void func() {
@@ -131,7 +131,7 @@ void func() {
 使用 `(a && b) || (c && d)` 而非 `a && b || c && d`，虽然他们表达的意思一致）。格式化工具不可添加或移除括号。
 不要使用括号来表明优先级。
 
-如果表达式有多行，把运算符放在后一行，并且使用块缩进。各个子表达式独占一行。例如：
+如果表达式有多行，把运算符放在后一行，并且使用块缩进。各个子表达式独占一行。例如，
 
 ```cpp
 foo_bar
@@ -201,7 +201,7 @@ x.foo().bar().baz(x, y, z);
 调用链由域访问（`::`）和方法调用（`. 或 ->`）构成。
 
 尽量写在单行内。如果需要写成多行，则所有元素应该独占一行，且以 `.` 作为新行的开头。
-每行都应该是块缩进的。例如：
+每行都应该是块缩进的。例如，
 
 ```cpp
 int foo = bar
@@ -209,33 +209,37 @@ int foo = bar
     .qux();
 ```
 
-If the length of the last line of the first element plus its indentation is
-less than or equal to the indentation of the second line (and there is space),
-then combine the first and second lines, e.g.,
+如果一个调用链的第一个元素的最后一行加上其缩进小于下一行的缩进，
+则只要有足够的空间，就应合并这两行。例如，
 
 ```cpp
-x.baz?
+// use
+x.baz
+    .qux()
+// not
+x
+    .baz
     .qux()
 
-let foo = x
+// use
+int foo = x
     .baz?
     .qux();
 
 foo(
     expr1,
-    expr2,
-).baz?
+    expr2
+).baz
     .qux();
 ```
 
-#### Multi-line elements
+#### 多行元素
 
-If any element in a chain is formatted across multiple lines, then that element
-and any later elements must be on their own line. Earlier elements may be kept
-on a single line. E.g.,
+若一个调用链中的某个元素被格式化为多行，则该元素和其后的元素应独占一行。
+其前的元素可以写在同一行。例如，
 
 ```cpp
-a.b.c()?.d
+a.b.c().d
     .foo(
         an_expr,
         another_expr,
@@ -244,49 +248,44 @@ a.b.c()?.d
     .baz
 ```
 
-Note there is block indent due to the chain and the function call in the above
-example.
+注意在上述例子中，调用链和函数调用都造成了缩进。
 
-Prefer formatting the whole chain in multi-line style and each element on one
-line, rather than putting some elements on multiple lines and some on a single
-line, e.g.,
+将整个调用格式化为多行且每个元素独占一行，
+要优于把部分元素放在同一行而其他元素格式化为多行。
+例如，
 
 ```cpp
 // Better
-self.pre_comment
+this->pre_comment
     .as_ref()
-    .map_or(false, |comment| comment.starts_with("//"))
+    .map_or(false, [&](auto comment) { return comment.starts_with("//"); })
 
 // Worse
-self.pre_comment.as_ref().map_or(
+this->pre_comment.as_ref().map_or(
     false,
-    |comment| comment.starts_with("//"),
+    [&](auto comment) { return comment.starts_with("//"); }
 )
 ```
 
-### Control flow expressions
+### 控制流表达式
 
-This section covers `if`, `if let`, `loop`, `while`, `while let`, and `for`
-expressions.
+本小节包括 `if`，`for`，`while`，`do-while` 表达式。
 
-The keyword, any initial clauses, and the opening brace of the block should be
-on a single line. The usual rules for [block formatting](#Blocks) should be
-applied to the block.
+关键字、条件表达式和开括号应在同一行。执行语句块应使用[块的格式化](#块)。
 
-If there is an `else` component, then the closing brace, `else`, any following
-clause, and the opening brace should all be on the same line. There should be a
-single space before and after the `else` keyword. For example:
+如果有 `else` 部分，则 `else` 之前的闭括号，`else`，接下来的条件表达式和开括号
+都应在同一行。`else` 前后应有一个空格。例如：
 
 ```cpp
-if ... {
+if (...) {
     ...
 } else {
     ...
 }
 
-if let ... {
+if (...) {
     ...
-} else if ... {
+} else if (...) {
     ...
 } else {
     ...

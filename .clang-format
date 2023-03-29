@@ -22,7 +22,7 @@ BinPackArguments: false
 BinPackParameters: false
 BreakBeforeBinaryOperators: NonAssignment
 BreakBeforeBraces: Attach
-BreakBeforeTernaryOperators: true
+BreakBeforeTernaryOperators: false
 BreakConstructorInitializers: AfterColon
 BreakInheritanceList: AfterColon
 BreakStringLiterals: false
