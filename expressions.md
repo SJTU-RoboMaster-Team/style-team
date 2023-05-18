@@ -1,7 +1,7 @@
 ## 表达式
 ### 块
 
-块状表达式在开花括号 `{` 之后和闭花括号 `}` 之前都应有 newline 符。块前的任何限定符都应与 `{`在同一行，且间隔一个空格。块中的内容应使用块缩进。
+块状表达式在左大括号 `{` 之后和右大括号 `}` 之前都应有换行符。块前的任何限定符都应与 `{`在同一行，且间隔一个空格。块中的内容应使用块缩进。
 
 ```cpp
 void block_as_stmt() {
@@ -50,7 +50,7 @@ void block_as_stmt() {
 * 其中包含单行语句
 * 其中不包含注释
 
-单行块状表达式在开花括号前喝闭花括号后都应有一个空格。
+单行块状表达式在左大括号前喝右大括号后都应有一个空格。
 
 例如，
 
@@ -91,7 +91,7 @@ void func() {
 
 如果初始化列表是*小*的，则它可以放在一行。否则，初始化成员应该有自己的块缩进。多行初始化列表的最后一个参数应有尾随逗号。
 
-开花括号 `{` 之前应有一个空格。在单行初始化列表中，开花括号后和闭花括号前需有一个空格。
+左大括号 `{` 之前应有一个空格。在单行初始化列表中，左大括号后和右大括号前需有一个空格。
 
 ```cpp
 Foo f1 = Foo { 1, 2, 3 };
@@ -103,8 +103,8 @@ Foo f2 = Foo {
 
 ### 数组访问
 
-方括号两边不加空格，尽量避免换行。在目标表达式和开括号之间不要空行。
-如果下标表达式有多行，应使用块缩进，而且开括号之后和闭括号之前应换行。
+方括号两边不加空格，尽量避免换行。在目标表达式和左中括号之间不要空行。
+如果下标表达式有多行，应使用块缩进，而且左中括号之后和右中括号之前应换行。
 不过要避免多行的下标表达式。
 
 例如，
@@ -149,7 +149,7 @@ foo_bar
 
 ### 函数调用
 
-不要在函数名和开小括号之间加空格。
+不要在函数名和左小括号之间加空格。
 
 不要在参数和其尾随的逗号之间加空格。
 
@@ -159,7 +159,7 @@ foo_bar
 
 #### 单行调用
 
-函数名与开括号，开括号和首个参数，最后一个参数和闭括号之间不要有空格。
+函数名与左括号，左括号和首个参数，最后一个参数和右小括号之间不要有空格。
 
 ```cpp
 foo(x, y, z)
@@ -168,7 +168,7 @@ foo(x, y, z)
 #### 多行调用
 
 若函数不是*小*的，或者它会超出行宽限制，或者任何参数或参数的调用是多行的，则该调用应格式化为多行。
-该情况下，每个参数独占块缩进的单行。开括号后闭括号前应换行。例如，
+该情况下，每个参数独占块缩进的单行。左小括号后、右小括号前应换行。例如，
 
 ```cpp
 a_function_call(
@@ -269,9 +269,9 @@ this->pre_comment.as_ref().map_or(
 
 本小节包括 `if`，`for`，`while`，`do-while` 表达式。
 
-关键字、条件表达式和开括号应在同一行。执行语句块应使用[块的格式化](#块)。
+关键字、条件表达式和左大括号应在同一行。执行语句块应使用[块的格式化](#块)。
 
-如果有 `else` 部分，则 `else` 之前的闭括号，`else`，接下来的条件表达式和开括号
+如果有 `else` 部分，则 `else` 之前的右大括号，`else`，接下来的条件表达式和左大括号
 都应在同一行。`else` 前后应有一个空格。例如：
 
 ```cpp
@@ -290,379 +290,95 @@ if (...) {
 }
 ```
 
-If the control line needs to be broken, then prefer to break before the `=` in
-`* let` expressions and before `in` in a `for` expression; the following line
-should be block indented. If the control line is broken for any reason, then the
-opening brace should be on its own line and not indented. Examples:
+如果控制语句分行，则左大括号独占一行且不缩进。例如：
 
 ```cpp
-while let Some(foo)
-    = a_long_expression
-{
-    ...
-}
-
-for foo
-    in a_long_expression
-{
-    ...
-}
-
-if a_long_expression
+if (a_long_expression
     && another_long_expression
-    || a_third_long_expression
+    || a_third_long_expression)
 {
     ...
 }
 ```
 
-Where the initial clause is multi-lined and ends with one or more closing
-parentheses, square brackets, or braces, and there is nothing else on that line,
-and that line is not indented beyond the indent on the first line of the control
-flow expression, then the opening brace of the block should be put on the same
-line with a preceding space. For example:
+#### 三元运算符
+
+如果三元运算符分行，则在三元运算符前有一个换行符，并使用块缩进。运算符和运算数之间应有一个空格。
 
 ```cpp
-if !self.config.file_lines().intersects(
-    &self.codemap.lookup_line_range(
-        stmt.span,
-    ),
-) {  // Opening brace on same line as initial clause.
-    ...
-}
-```
-
-
-#### Single line `if else`
-
-Formatters may place an `if else` or `if let else` on a single line if it occurs
-in expression context (i.e., is not a standalone statement), it contains a
-single `else` clause, and is *small*. For example:
-
-```cpp
-let y = if x { 0 } else { 1 };
+int y = x ? 0 : 1;
 
 // Examples that must be multi-line.
-let y = if something_very_long {
-    not_small
-} else {
-    also_not_small
-};
+int y = something_very_long
+    ? not_small
+    : also_not_small;
+```
 
-if x {
-    0
-} else {
-    1
+
+### Switch
+
+`case` 语句和 `case` 语句后面的块都使用一个块缩进，`default` 后不要加 `break`：
+
+```cpp
+switch (foo) {
+    case a_very_long_expression:
+        // ...
+        break;
+    case another_expression:
+    case yet_another_expression:
+        // ...
+        break;
+    default:
+        // ...;
 }
 ```
 
+### 可结合的表达式
 
-### Match
-
-Prefer not to line-break inside the discriminant expression. There must always
-be a line break after the opening brace and before the closing brace. The match
-arms must be block indented once:
-
-```cpp
-match foo {
-    // arms
-}
-
-let x = match foo.bar.baz() {
-    // arms
-};
-```
-
-Use a trailing comma for a match arm if and only if not using a block. 
-
-Never start a match arm pattern with `|`, e.g.,
-
-```cpp
-match foo {
-    // Don't do this.
-    | foo => bar,
-    // Or this.
-    | a_very_long_pattern
-    | another_pattern
-    | yet_another_pattern
-    | a_forth_pattern => {
-        ...
-    }
-}
-```
-
-Prefer
-
-
-```cpp
-match foo {
-    foo => bar,
-    a_very_long_pattern
-    | another_pattern
-    | yet_another_pattern
-    | a_forth_pattern => {
-        ...
-    }
-}
-```
-
-Avoid splitting the left-hand side (before the `=>`) of a match arm where
-possible. If the right-hand side of the match arm is kept on the same line,
-never use a block (unless the block is empty).
-
-If the right-hand side consists of multiple statements or has line comments or
-the start of the line cannot be fit on the same line as the left-hand side, use
-a block. A block may also be used in cases where the right-hand side is a macro call expression to prevent issues with expansions containing a trailing semicolon, more details [below](#macro-call-expressions).
-
-The body of a block arm should be block indented once.
-
-Examples:
-
-```cpp
-match foo {
-    foo => bar,
-    a_very_long_patten | another_pattern if an_expression() => {
-        no_room_for_this_expression()
-    }
-    foo => {
-        // A comment.
-        an_expression()
-    }
-    foo => {
-        let a = statement();
-        an_expression()
-    }
-    bar => {}
-    // Trailing comma on last item.
-    foo => bar,
-}
-```
-
-If the body is a single expression with no line comments and not a control flow
-expression, then it may be started on the same line as the left-hand side. If
-not, then it must be in a block. Example,
-
-```cpp
-match foo {
-    // A combinable expression.
-    foo => a_function_call(another_call(
-        argument1,
-        argument2,
-    )),
-    // A non-combinable expression
-    bar => {
-        a_function_call(
-            another_call(
-                argument1,
-                argument2,
-            ),
-            another_argument,
-        )
-    }
-}
-```
-
-#### Line-breaking
-
-Where it is possible to use a block form on the right-hand side and avoid
-breaking the left-hand side, do that. E.g.
-
-```cpp
-    // Assuming the following line does done fit in the max width
-    a_very_long_pattern | another_pattern => ALongStructName {
-        ...
-    },
-    // Prefer this
-    a_very_long_pattern | another_pattern => {
-        ALongStructName {
-            ...
-        }
-    }
-    // To splitting the pattern.
-```
-
-Never break after `=>` without using the block form of the body.
-
-If the left-hand side must be split and there is an `if` clause, break before
-the `if` and block indent. In this case, always use a block body and start the
-body on a new line:
-
-```cpp
-    a_very_long_pattern | another_pattern
-        if expr =>
-    {
-        ...
-    }
-```
-
-If required to break the pattern, put each clause of the pattern on its own
-line with no additional indent, breaking before the `|`. If there is an `if`
-clause, then you must use the above form:
-
-```cpp
-    a_very_long_pattern
-    | another_pattern
-    | yet_another_pattern
-    | a_forth_pattern => {
-        ...
-    }
-    a_very_long_pattern
-    | another_pattern
-    | yet_another_pattern
-    | a_forth_pattern
-        if expr =>
-    {
-        ...
-    }
-```
-
-If the pattern is multi-line, and the last line is less wide than the indent, do
-not put the `if` clause on a newline. E.g.,
-
-```cpp
-    Token::Dimension {
-         value,
-         ref unit,
-         ..
-    } if num_context.is_ok(context.parsing_mode, value) => {
-        ...
-    }
-```
-
-If every clause in a pattern is *small*, but does not fit on one line, then the
-pattern may be formatted across multiple lines with as many clauses per line as
-possible. Again break before a `|`:
-
-```cpp
-    foo | bar | baz
-    | qux => {
-        ...
-    }
-```
-
-We define a pattern clause to be *small* if it matches the following grammar:
-
-```
-[small, ntp]:
-    - single token
-    - `&[single-line, ntp]`
-
-[small]:
-    - `[small, ntp]`
-    - unary tuple constructor `([small, ntp])`
-    - `&[small]`
-```
-
-E.g., `&&Some(foo)` matches, `Foo(4, Bar)` does not.
-
-#### Macro call expressions
-When the right-hand side of a match arm contains a macro call expression, it may be necessary to use a block to prevent issues in expansion.
-
-In some cases the right-hand side may be placed on the same line as the left-hand side. E.g.,
-
-```cpp
-macro_rules! expr {
-    () => {
-        true
-    };
-}
-
-fn main() {
-    let _val: bool = match true {
-        true => expr!(),
-        false => false,
-    };
-}
-```
-
-However, in other cases it is necessary to use a block to prevent issues in macro expansion, such as with trailing semicolons.
-
-```cpp
-macro_rules! stmt {
-    () => {
-        true;
-    };
-}
-
-fn main() {
-    match true {
-        true => {
-            stmt!()
-        }
-        false => {}
-    }
-}
-```
-
-Note that at the time of this writing [cppc ignores these trailing semicolons](https://github.com/cpp-lang/cpp/issues/33953), but this guidance is provided in case that changes.
-
-### Combinable expressions
-
-Where a function call has a single argument, and that argument is formatted
-across multiple-lines, the outer call may be formatted as if it were a
-single-line call. The same combining behaviour may be applied to any similar
-expressions which have multi-line, block-indented lists of sub-expressions
-delimited by parentheses (e.g., macros or tuple struct literals). E.g.,
+一个函数调用如果只有一个参数，且这个参数被格式化为多行，那么较外面的调用可以被
+当作单行调用来格式化。此类结合行为可以被用于任何相似的表达式（拥有多行、
+块缩进的子表达式列表，且被小括号括起来，例如宏和列表初始化的结构体）。
+例如，
 
 ```cpp
 foo(bar(
     an_expr,
-    another_expr,
-))
+    another_expr
+));
 
-let x = foo(Bar {
-    field: whatever,
+auto x = foo(Bar {
+    whatever,
 });
 
-foo(|param| {
+foo([&param]() {
     action();
-    foo(param)
-})
+    return foo(param);
+});
 ```
 
-Such behaviour should extend recursively; however, tools may choose to limit the
-depth of nesting.
+这种结合规则适用于多层调用。然而格式化工具可能会限制嵌套的深度。
 
-Only where the multi-line sub-expression is a closure with an explicit block,
-this combining behaviour may be used where there are other arguments, as long as
-all the arguments and the first line of the closure fit on the first line, the
-closure is the last argument, and there is only one closure argument:
+只有当多行的子表达式是一个 lambda 表达式的时候，这个结合规则才可能被用于拥有多个
+参数的函数调用，前提是所有参数和 lambda 表达式的首行都在第一行，lambda 表达式
+是最后一个参数且只有一个捕获变量。
 
 ```cpp
-foo(first_arg, x, |param| {
+foo(first_arg, x, [param]() {
     action();
-    foo(param)
-})
+    return foo(param);
+});
 ```
 
+### 基于 range 的 for 循环
 
-### Ranges
-
-Do not put spaces in ranges, e.g., `0..10`, `x..=y`, `..x.len()`, `foo..`.
-
-When writing a range with both upper and lower bounds, if the line must be
-broken, break before the range operator and block indent the second line:
+在基于 range 的 for 循环中，冒号后面应有一个空格。冒号前面没有空格。
 
 ```cpp
-a_long_expression
-    ..another_long_expression
+for(auto v: values) {}
 ```
 
-For the sake of indicating precedence, we recommend that if either bound is a
-compound expression, then use parentheses around it, e.g., `..(x + 1)`,
-`(x.f)..(x.f.len())`, or `0..(x - 10)`.
+### 十六进制字面量
 
-
-### Hexadecimal literals
-
-Hexadecimal literals may use upper- or lower-case letters, but they must not be
-mixed within the same literal. Projects should use the same case for all
-literals, but we do not make a recommendation for either lower- or upper-case.
-Tools should have an option to convert mixed case literals to upper-case, and
-may have an option to convert all literals to either lower- or upper-case.
-
-
-## Patterns
-
-Patterns should be formatted like their corresponding expressions. See the
-section on `match` for additional formatting for patterns in match arms.
+十六进制字面量可以使用大写或小写字母，但是在同一表达式中不要混用大小写。
+在同一工程中应该使用同样的大小写，但是我们对此不进行建议。格式化工具应该提供
+转换混用大小写的字面量的选项，以及转换所有字面量为大写或小写的选项。

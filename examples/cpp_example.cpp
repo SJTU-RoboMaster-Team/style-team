@@ -55,13 +55,28 @@ const int SO_STRANGE = 2;
 int main() {
     AStrangeTypeName x; // 本行的注释
     int count = 0;
-    for (; count < 10; ++count) {}
+    for (; count < 10; ++count) {
+        // ...
+    }
     Foo foo = Foo { 0, 3, 4 };
 
-    if (foo.a > 0.f) {
+    std::vector<int> res { 1, 2, 3 };
+
+    while (true) {
+        // ...
+    }
+
+    bool really_really_really_really_really_really_really_long_exp = false;
+    if (foo.a > 0.f && really_really_really_really_really_really_really_long_exp
+        && really_really_really_really_really_really_really_long_exp)
+    {
         foo.b = 2;
     }
 
-    Foo f = Foo { 1, 2, 3 };
+    foo(
+        bar(really_really_really_really_really_really_really_long_exp,
+            really_really_really_really_really_really_really_long_exp))
+
+        Foo f = Foo { 1, 2, 3 };
     return foo.a;
 }

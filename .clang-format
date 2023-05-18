@@ -21,8 +21,13 @@ AlwaysBreakTemplateDeclarations: Yes
 BinPackArguments: false
 BinPackParameters: false
 BreakBeforeBinaryOperators: NonAssignment
-BreakBeforeBraces: Attach
-BreakBeforeTernaryOperators: false
+BreakBeforeBraces: Custom
+BreakBeforeTernaryOperators: true
+BraceWrapping:
+  AfterControlStatement: MultiLine
+  AfterEnum: false
+  AfterStruct: false
+  SplitEmptyFunction: false
 BreakConstructorInitializers: AfterColon
 BreakInheritanceList: AfterColon
 BreakStringLiterals: false

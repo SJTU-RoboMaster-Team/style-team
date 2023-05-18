@@ -12,41 +12,36 @@
 
 ```cpp
 namespace a::b {
-int fn(const int& x, const int& y) {  
+int func(const int& x, const int& y) {  
     return std::abs(x + y); // ok
 }
 }
 
 namespace a::b::c {
 // use
-int test0() {
+int test() {
     // 您需要保证调用处的第一个前缀 "b" 出现在面包屑中
     return b::func(2, 3);
 }
 // not
-int test1() {
+int test() {
     return func(2, 3);
 }
 } // namespace a::b::c
 ```
 
-如果在当前作用域需大量使用外部作用域，请采用 namespace 别名。
+如果在当前作用域需大量使用外部作用域，请使用 namespace 别名。
 
 ```cpp
 namespace a::b::c {
 namespace sub = b::sub;
 
 void fn0() {
-    namespace utils = ::utils;
-
-    utils::init();
-    sub::SomeType instance;
+    sub::Foo instance;
 }
 
 void fn1() {
-    // 无 namespace 别名时
-    ::utils::init();
-    a::sub::AnotherType instance;
+    sub::Foo instance;
 }
 }
 ```
@@ -56,16 +51,16 @@ void fn1() {
 ```cpp
 class A {
 public:
-    A(const int& param);
+    A(const int& x);
 private: 
     int member = 0;
 }
 
-A::A(const int& param) {
+A::A(const int& x) {
     // use
-    this->member = param;
+    this->member = x;
     // not
-    member = param;
+    member = x;
 }
 ```
 
@@ -94,29 +89,30 @@ private:
 
 ```cpp
 // use
-namespace solve {
-struct Data {
-    int item1;
-    int item2;
+namespace a {
+struct Bar {
+    int a;
+    int b;
 };
 
-struct Solver {
-    int operator()(const Data& data) {
-        // 不将 Solver 视为作用域时，可以不使用 Solver::Data 来调用该类型
-        return data.item2 * 2;
+struct Foo {
+    int operator()(const Bar& bar) {
+        // 不将 Solver 视为作用域时，可以不使用 Solver::bar 来调用该类型
+        return bar.a + bar.b;
     }
 };
 } // namespace solver
 
 // not
-struct Solver {
-    struct Data {
-        int item1;
-        int item2;
+struct Foo {
+    struct Bar {
+        int a;
+        int b;
     };
 
-    int operator()(const Solver::Data& data) {
-        return data.item2 * 2;
+    int operator()(const Bar& bar) {
+        // 不将 Solver 视为作用域时，可以不使用 Solver::bar 来调用该类型
+        return bar.a + bar.b;
     }
 };
 ```
