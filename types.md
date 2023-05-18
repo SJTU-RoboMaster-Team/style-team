@@ -1,25 +1,16 @@
-## Types and Bounds
+## 类型和约束
 
-### Single line formatting
+### 单行格式化
 
-* `[T]` no spaces
-* `[T; expr]`, e.g., `[u32; 42]`, `[Vec<Foo>; 10 * 2 + foo()]` (space after colon, no spaces around square brackets)
-* `*const T`, `*mut T` (no space after `*`, space before type)
-* `&'a T`, `&T`, `&'a mut T`, `&mut T` (no space after `&`, single spaces separating other words)
-* `unsafe extern "C" fn<'a, 'b, 'c>(T, U, V) -> W` or `fn()` (single spaces around keywords and sigils, and after commas, no trailing commas, no spaces around brackets)
-* `!` should be treated like any other type name, `Name`
-* `(A, B, C, D)` (spaces after commas, no spaces around parens, no trailing comma unless it is a one-tuple)
-* `<Baz<T> as SomeTrait>::Foo::Bar` or `Foo::Bar` or `::Foo::Bar` (no spaces around `::` or angle brackets, single spaces around `as`)
-* `Foo::Bar<T, U, V>` (spaces after commas, no trailing comma, no spaces around angle brackets)
-* `T + T + T` (single spaces between types, and `+`).
-* `impl T + T + T` (single spaces between keyword, types, and `+`).
+* `T name[expr]`，例如 `uint32_t a[32]`, `std::vector<Foo> a[10 * 2 + foo()]`（中括号两边没有空格）
+* `const T* name`, `T& name`（`*` 和 `&` 与类型名之间没有空格，与变量名之间有一个空格）
+* `template<typename T, typename U>`（逗号后有一个空格，尖括号两边没有空格）
+* `std::tuple<A, B, C, D>` （逗号后有空格，尖括号两边没有空格）
+* `class A: public B, public C {}` （冒号和逗号尾随类型名）。
 
-Parentheses used in types should not be surrounded by whitespace, e.g., `(Foo)`
+### 分行
 
-
-### Line breaks
-
-Avoid breaking lines in types where possible. Prefer breaking at outermost scope, e.g., prefer
+避免在类型中分行。如果要分行，尽量在最外层分行。例如，这种写法
 
 ```cpp
 Foo<
@@ -28,7 +19,7 @@ Foo<
 >
 ```
 
-to
+比下面这个写法更好：
 
 ```cpp
 Foo<Bar, Baz<
@@ -37,8 +28,6 @@ Foo<Bar, Baz<
 >>
 ```
 
-`[T; expr]` may be broken after the `;` if necessary.
-
 Function types may be broken following the rules for function declarations.
 
 Generic types may be broken following the rules for generics.
@@ -46,13 +35,12 @@ Generic types may be broken following the rules for generics.
 Types with `+` may be broken after any `+` using block indent and breaking before the `+`. When breaking such a type, all `+`s should be line broken, e.g.,
 
 ```cpp
-impl Clone
-    + Copy
-    + Debug
-
-Box<
-    Clone
-    + Copy
-    + Debug
->
+class A:
+    public Clone,
+    public Copy,
+    public Debug {
+private:
+    int a;
+    int b;
+};
 ```

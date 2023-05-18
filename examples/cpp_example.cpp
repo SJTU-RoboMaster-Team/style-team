@@ -48,6 +48,20 @@ struct Foo {
     float c;
 };
 
+class LonglonglonglonglonglonglonglonglonglonglonglonglongClassName1 {};
+class LonglonglonglonglonglonglonglonglonglonglonglonglongClassName2 {};
+class LonglonglonglonglonglonglonglonglonglonglonglonglongClassName3 {};
+class A:
+    public LonglonglonglonglonglonglonglonglonglonglonglonglongClassName1,
+    public LonglonglonglonglonglonglonglonglonglonglonglonglongClassName2 {
+public:
+    int a;
+    int b;
+};
+
+template<typename T, typename U>
+T func(U a) {}
+
 const int SO_STRANGE = 2;
 
 #define MIN(x, y) (x) < (y) ? (x) : (y)

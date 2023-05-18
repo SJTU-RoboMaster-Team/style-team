@@ -1,32 +1,23 @@
-## Items
+## 条目
 
-`extern crate` statements must be first in a file. They must be ordered
-alphabetically.
+`#include` 语句必须放在文件的最前面。包含头文件的次序如下：
 
-`use` statements, and module *declarations* (`mod foo;`, not `mod { ... }`)
-must come before other items. We recommend that imports come before module
-declarations; if imports and modules are separated, then they should be ordered
-alphabetically. When sorting, `self` and `super` must come before any other
-names. Module declarations should not be moved if they are annotated with
-`#[macro_use]`, since that may be semantics changing.
+1. 源文件对应的头文件
+2. C 系统头文件
+3. C++ 系统头文件
+4. 第三方库的头文件
+5. 本项目内的头文件
 
-Tools should make the above ordering optional.
+同一类别的头文件按照字典序排列。
 
+`using` 声明和 `namespace` 别名（指 `namespace a = b;`，不是 `namespace { ... }`）应
+必须放在其作用域中其他语句的前面。同一类别的声明按照字典序排列。
 
-### Function definitions
+格式化工具应该让以上排序方法是可选的。
 
-In cpp, one finds functions by searching for `fn [function-name]`; It's
-important that you style your code so that it's very searchable in this way.
+### 函数定义
 
-The proper ordering and spacing is:
-
-```cpp
-[pub] [unsafe] [extern ["ABI"]] fn foo(arg1: i32, arg2: i32) -> i32 {
-    ...
-}
-```
-
-Avoid comments within the signature itself.
+在函数签名内部不要加注释。
 
 If the function signature does not fit on one line, then break after the opening
 parenthesis and before the closing parenthesis and put each argument on its own

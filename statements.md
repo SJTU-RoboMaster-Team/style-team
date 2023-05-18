@@ -1,18 +1,15 @@
 ### 定义和初始化
 
-尽可能使用 `=` 初始化，当它不可使用或者造成类型名冗余时，使用“统一初始化方法” `Type pattern{expr};`。
+尽可能使用 `=` 初始化，当它不可使用或者造成类型名冗余时，使用“统一初始化方法” `Type pattern { expr };`。
 
 ```cpp
 // use
 std::vector<int> numbers = { 1, 2, 3 };
+auto numbers = std::vector<int>(100, 2);
+Foo bar { 0.01, 10 };
 // not
-std::vector<int> vec { 1, 2, 3 };
-
-// use
-KalmanFilter filter1 { 0.01, 10 };
-// not
-KalmanFilter filter2 = KalmanFilter(0.01, 10);
-KalmanFilter filter3(0.01, 10);
+Foo bar = Foo(0.01, 10);
+Foo bar(0.01, 10);
 ```
 
 尽量在一行内定义完成。如果做不到，可以拆成两行。此时表达式应使用块缩进。
