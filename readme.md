@@ -2,13 +2,13 @@
 
 # 代码规范 RFCs
 
-本仓库用于讨论和确定 C++ 的代码规范，使用 Clang-Format 和 Clang-Tidy 来自动化执行风格修正。您可以在 `text` 文件夹中提交意见，并且为 formatting tools 提供规范。
+本仓库用于讨论和确定 C++ 的代码规范，使用 Clang-Format 和 Clang-Tidy 来自动化执行风格修正。你可以在 `text` 文件夹中提交意见，并且为 formatting tools 提供规范。
 
 ## 风格指南如何征求意见
 
-* 若要讨论风格规则，请您发起 GitHub issue 🐱。您需要注意：
-  - 精确定义您的规则，给出详尽的解释和例子。
-  - 您得看看有无现存的 issue 和规则已经涵盖了您的主题 👀。
+* 若要讨论风格规则，请你发起 GitHub issue 🐱。你需要注意：
+  - 精确定义你的规则，给出详尽的解释和例子。
+  - 你得看看有无现存的 issue 和规则已经涵盖了你的主题 👀。
   - 风格团队会关闭无休止的 issue，除非 issue 给出了新的理由或者新的方案。
 * 讨论出结果的 issue 会被放入 final comment period (FCP)。
 * 达成共识！🙏🏻
@@ -17,7 +17,7 @@
 
 使用自动化插件 Clang-Format 和 Clang-Tidy 读取本项目中的 `.clang-format` 和 `.clang-tidy` 即可 ✅。
 
-在简单编辑环境下，您仍然可以比较轻松地践行这些规则。
+在简单编辑环境下，你仍然可以比较轻松地践行这些规则。
 
 ## 设计原则
 

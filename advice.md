@@ -53,7 +53,7 @@ int func(const int& x, const int& y) {
 namespace a::b::c {
 // use
 int test() {
-    // 您需要保证调用处的第一个前缀 "b" 出现在面包屑中
+    // 需要保证调用处的第一个前缀 "b" 出现在面包屑中
     return b::func(2, 3);
 }
 // not
