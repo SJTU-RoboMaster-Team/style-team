@@ -24,7 +24,7 @@ const double SOME_ANGLE = math::deg_to_rad(45); // 角度制转弧度制
 const double SIN_RESULT = std::sin(SOME_ANGLE);
 ```
 
-## 不省略 if / for statements 的花括号
+## 不省略 if / for statements 的大括号
 
 ```cpp
 // 使用
