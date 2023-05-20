@@ -56,3 +56,4 @@ def parse(path) -> str:
 with open('../build/blog.md', 'w') as f:
     res = HEAD + parse('../README.md')
     f.write(res)
+    print('已经写入文件。')
