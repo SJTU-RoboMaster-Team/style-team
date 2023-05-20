@@ -11,7 +11,7 @@
  * 变量 `lower_case`，
  * 宏 `UPPER_CASE`，
  * 全局常量 `UPPER_CASE`，
-* 如果和关键字冲突 (e.g., `namespace`)，就连接一个下划线 (e.g., `namespace_`)。
+* 如果和关键字冲突（例如 `namespace`），就连接一个下划线（例如 `namespace_`）。
 
 ## 单位
 
