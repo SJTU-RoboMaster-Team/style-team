@@ -3,11 +3,11 @@
 尽可能使用 `=` 初始化，当它不可使用或者造成类型名冗余时，使用“统一初始化方法” `Type pattern { expr };`。
 
 ```cpp
-// use
+// 使用
 std::vector<int> numbers = { 1, 2, 3 };
 auto numbers = std::vector<int>(100, 2);
 Foo bar { 0.01, 10 };
-// not
+// 不使用
 Foo bar = Foo(0.01, 10);
 Foo bar(0.01, 10);
 ```
@@ -24,7 +24,7 @@ Type pattern =
 语句中调用的宏应该在尾部加上分号。小括号两边都不应有空格。
 
 ```cpp
-// A comment.
+// 一个注释。
 a_macro(...);
 ```
 

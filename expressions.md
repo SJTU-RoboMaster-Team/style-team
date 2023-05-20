@@ -203,15 +203,15 @@ int foo = bar
 如果一个调用链的第一个元素的最后一行加上其缩进小于下一行的缩进，则只要有足够的空间，就应合并这两行。例如，
 
 ```cpp
-// use
+// 使用
 x.baz
     .qux()
-// not
+// 不使用
 x
     .baz
     .qux()
 
-// use
+// 使用
 int foo = x
     .baz?
     .qux();
@@ -242,12 +242,12 @@ a.b.c().d
 将整个调用格式化为多行且每个元素独占一行，要优于把部分元素放在同一行而其他元素格式化为多行。例如，
 
 ```cpp
-// Better
+// 好的
 this->pre_comment
     .as_ref()
     .map_or(false, [&](auto comment) { return comment.starts_with("//"); })
 
-// Worse
+// 坏的
 this->pre_comment.as_ref().map_or(
     false,
     [&](auto comment) { return comment.starts_with("//"); }
@@ -296,7 +296,7 @@ if (a_long_expression
 ```cpp
 int y = x ? 0 : 1;
 
-// Examples that must be multi-line.
+// 必须拆为多行的一个例子。
 int y = something_very_long
     ? not_small
     : also_not_small;

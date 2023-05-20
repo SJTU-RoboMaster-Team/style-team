@@ -27,11 +27,11 @@ const double SIN_RESULT = std::sin(SOME_ANGLE);
 ## 不省略 if / for statements 的花括号
 
 ```cpp
-// use
+// 使用
 if (true) {
     continue;
 }
-// not
+// 不使用
 if (true)
     continue;
 ```
@@ -54,9 +54,9 @@ int foo(const int& x, const int& y) {
 
 namespace a::b::c {
 int foo() {
-    // use
+    // 使用
     return b::func(2, 3); // 光标在调用处时，需要保证调用处的第一个前缀 "b" 出现在面包屑中
-    // not
+    // 不使用
     return func(2, 3);
 }
 }
@@ -89,9 +89,9 @@ private:
 }
 
 A::A(const int& x) {
-    // use
+    // 使用
     this->member = x;
-    // not
+    // 不使用
     member = x;
 }
 ```
@@ -122,7 +122,7 @@ private:
 ## 不将 class / struct 作为命名空间使用
 
 ```cpp
-// use
+// 使用
 namespace a {
 struct Foo {
     int a;
@@ -137,7 +137,7 @@ struct Bar {
 };
 } // namespace a
 
-// not
+// 不使用
 struct Bar {
     struct Foo {
         int a;

@@ -175,7 +175,7 @@ void foo(const std::vector<T>& x, const std::vector<U>& y) ...
 ```cpp
 using Foo = Bar<T>;
 
-// If multi-line is required
+// 如果需要拆成多行
 using VeryLongType<T, U> =
     AnEvenLongerType<T, U, Foo<T>>;
 ```
