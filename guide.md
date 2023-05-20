@@ -34,13 +34,13 @@ void bar() {}
 void baz() {}
 ```
 
-### [Module-level items](items.md)
+### [条目](items.md)
 
-### [Statements](statements.md)
+### [语句](statements.md)
 
-### [Expressions](expressions.md)
+### [表达式](expressions.md)
 
-### [Types](types.md)
+### [类型](types.md)
 
 ### 注释
 
@@ -139,8 +139,8 @@ Foo { 1, 2 };
 
 格式化工具应允许用户忽略这些因素，从而总是采用常规格式化。
 
-## [非格式建议](advice.md)
+## [非格式规范](advice.md)
 
-## [CMake 格式化要求](cmake.md)
+## [CMakeLists.txt, *.cmake 规范](cmake.md)
 
 ## [一些重要的原则](principles.md)
