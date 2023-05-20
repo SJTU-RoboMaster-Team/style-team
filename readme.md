@@ -1,6 +1,12 @@
 ![](example.jpg)
 
-[本仓库](https://github.com/SJTU-RoboMaster-Team/style-team)代码规范的参考主要是 [Chromium C++ style guide](http://chromium.googlesource.com/chromium/src/+/HEAD/styleguide/c++/c++.md)，[Google 开源项目风格指南](https://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/)和 [Rust style guide](https://github.com/rust-lang/style-team)。翻译规范遵循 Rust 中文翻译项目组的 [Rust 文档翻译指引](https://rustwiki.org/wiki/translate/rust-translation-guide/)和 [Rust 语言术语中英文对照表](https://rustwiki.org/wiki/translate/english-chinese-glossary-of-rust/)。
+[本仓库](https://github.com/SJTU-RoboMaster-Team/style-team)代码规范的参考主要是 [Chromium C++ style guide](http://chromium.googlesource.com/chromium/src/+/HEAD/styleguide/c++/c++.md)，[Google 开源项目风格指南](https://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/)和 [Rust style guide](https://github.com/rust-lang/style-team)。翻译规范参考 [C++ 参考手册](https://zh.cppreference.com/w/%E9%A6%96%E9%A1%B5)，为了让翻译后文档规范且易于阅读，也参考了 Rust 中文翻译项目组的 [Rust 文档翻译指引](https://rustwiki.org/wiki/translate/rust-translation-guide/)。
+
+如何自动化地应用这些规范？
+
+* 将本仓库的 `.clang-format` 和 `.clang-tidy` 文件拷贝至你的项目根目录下。
+* 在编辑器中开启 `Clang-Format` 和 `Clang-Tidy` 插件。插件通常默认使用工作区根目录下的配置文件。
+* 在 C++ 代码文件中执行编辑器的格式化文档操作。你也可以开启保存时自动格式化的功能。
 
 # 代码规范 RFCs
 

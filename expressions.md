@@ -172,7 +172,6 @@ a_function_call(
 )
 ```
 
-
 ### 方法调用
 
 和函数调用保持一致。
@@ -182,7 +181,6 @@ a_function_call(
 ```cpp
 x.foo().bar().baz(x, y, z);
 ```
-
 
 ### 宏调用
 
@@ -301,7 +299,6 @@ int y = something_very_long
     ? not_small
     : also_not_small;
 ```
-
 
 ### Switch
 

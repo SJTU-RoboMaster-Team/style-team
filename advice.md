@@ -4,7 +4,7 @@
 
  * 类型 `CamelCase`，
  * 枚举成员 `UPPER_CASE`，
- * 在以上情况中, 若使用缩写, 则仅大写缩写单词的首字母 `HttpRequest`.
+ * 在以上情况中, 若使用缩写, 则仅大写缩写单词的首字母 `HttpRequest`。
  * 命名空间 `lower_case`，
  * 成员 `lower_case`，
  * 函数 `lower_case`，
@@ -12,6 +12,8 @@
  * 宏 `UPPER_CASE`，
  * 全局常量 `UPPER_CASE`，
 * 如果和关键字冲突（例如 `namespace`），就连接一个下划线（例如 `namespace_`）。
+
+---
 
 ## 单位
 
@@ -39,7 +41,6 @@ if (true)
 ## 文件后缀
 
 使用 `.cpp` 和 `.hpp` 作为 C++ 文件后缀。
-
 
 ## 调用
 
@@ -78,7 +79,7 @@ void fn1() {
 }
 ```
 
-不使用隐式 `this`.
+不使用隐式 `this`。
 
 ```cpp
 class A {
@@ -149,3 +150,5 @@ struct Bar {
     }
 };
 ```
+
+---
