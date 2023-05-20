@@ -27,20 +27,3 @@ Foo<Bar, Baz<
     Type2,
 >>
 ```
-
-Function types may be broken following the rules for function declarations.
-
-Generic types may be broken following the rules for generics.
-
-Types with `+` may be broken after any `+` using block indent and breaking before the `+`. When breaking such a type, all `+`s should be line broken, e.g.,
-
-```cpp
-class A:
-    public Clone,
-    public Copy,
-    public Debug {
-private:
-    int a;
-    int b;
-};
-```
