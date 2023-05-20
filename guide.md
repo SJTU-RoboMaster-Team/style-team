@@ -20,7 +20,7 @@
 
 ### 空行
 
-不同的语句之间要么不空行，要么空一行。E.g,
+不同的语句之间要么不空行，要么空一行。例如，
 
 ```cpp
 void foo() {
@@ -35,10 +35,12 @@ void baz() {}
 ```
 
 ### [Module-level items](items.md)
-### [Statements](statements.md)
-### [Expressions](expressions.md)
-### [Types](types.md)
 
+### [Statements](statements.md)
+
+### [Expressions](expressions.md)
+
+### [Types](types.md)
 
 ### 注释
 
@@ -116,7 +118,7 @@ struct CRepr {
 };
 ```
 
-### *小的*条目
+### **小的**条目
 
 在本指南中，对于小条目，我们会采用不同的格式化方式。例如，对于结构体的列表初始化：
 
@@ -127,7 +129,7 @@ Foo {
     another_expression(),
 }
 
-// *小项目* 格式化 ✅
+// **小项目** 格式化 ✅
 Foo { 1, 2 };
 ```
 

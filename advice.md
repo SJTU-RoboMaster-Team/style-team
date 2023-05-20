@@ -15,7 +15,9 @@
 
 ## 单位
 
-内部角度运算用弧度制。显式存储的角度常量用角度制。无后缀的类型采用国际单位。
+程序内部角度运算用弧度制。显式存储的角度常量用角度制。
+
+如果变量的名称中没有说明单位，默认采用国际单位。
 
 ```cpp
 const double SOME_ANGLE = math::deg_to_rad(45); // 角度制转弧度制
@@ -45,36 +47,33 @@ if (true)
 
 ```cpp
 namespace a::b {
-int func(const int& x, const int& y) {  
+int foo(const int& x, const int& y) {  
     return std::abs(x + y); // ok
 }
 }
 
 namespace a::b::c {
-// use
-int test() {
-    // 需要保证调用处的第一个前缀 "b" 出现在面包屑中
-    return b::func(2, 3);
-}
-// not
-int test() {
+int foo() {
+    // use
+    return b::func(2, 3); // 光标在调用处时，需要保证调用处的第一个前缀 "b" 出现在面包屑中
+    // not
     return func(2, 3);
 }
-} // namespace a::b::c
+}
 ```
 
 如果在当前作用域需大量使用外部作用域，请使用 namespace 别名。
 
 ```cpp
 namespace a::b::c {
-namespace sub = b::sub;
+namespace foo = b::foo;
 
 void fn0() {
-    sub::Foo instance;
+    foo::Bar x;
 }
 
 void fn1() {
-    sub::Foo instance;
+    foo::baz::Qux y;
 }
 }
 ```
@@ -104,48 +103,49 @@ struct A {
 public:
     A() {}
     Type member; // 由于存在公共变量，使用 struct
+    
 private:
     int id;
 };
 
-class Interface {
+class B {
 public:
     int method1() { return 0; }
     void method2() {}
     int get_id() { return this->id; }
+
 private:
     int id; // 由于不存在公共变量，使用 class
 };
 ```
 
-## 不将 class / struct 作命名空间使用
+## 不将 class / struct 作为命名空间使用
 
 ```cpp
 // use
 namespace a {
-struct Bar {
+struct Foo {
     int a;
     int b;
 };
 
-struct Foo {
-    int operator()(const Bar& bar) {
-        // 不将 Solver 视为作用域时，可以不使用 Solver::bar 来调用该类型
-        return bar.a + bar.b;
+struct Bar {
+    int operator()(const Foo& x) {
+        // 不将 Bar 视为作用域时，就可以理所当然地使用 Foo 而不是 a::Foo 来调用
+        return x.a + x.b;
     }
 };
-} // namespace solver
+} // namespace a
 
 // not
-struct Foo {
-    struct Bar {
+struct Bar {
+    struct Foo {
         int a;
         int b;
     };
 
-    int operator()(const Bar& bar) {
-        // 不将 Solver 视为作用域时，可以不使用 Solver::bar 来调用该类型
-        return bar.a + bar.b;
+    int operator()(const Foo& x) {
+        return x.a + x.b;
     }
 };
 ```

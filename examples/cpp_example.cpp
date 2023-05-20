@@ -1,17 +1,46 @@
 //! 想笑
 //! C++ 真的有这种注释么
-#include <stdint.h>
+
+#include "cpp_example.h"
+
+#include <stdio.h>
 
 #include <iostream>
-#include <vector>
+
+#include <ceres/ceres.h>
+#include <opencv2/opencv.hpp>
+
+#include "core_io.hpp"
 
 enum class EnumType {
     AUTO_RESULT = 0,
     POS_POS,
 };
 
+union test {
+    char mark;
+    long num;
+    float score;
+};
+
 using Type1 = EnumType;
 using I32 = int;
+
+enum class FooBar {
+    FIRST,
+    SECOND,
+    ERROR,
+};
+
+struct Comma {
+    int a;
+    int b;
+};
+
+class Debug {};
+class Bar {};
+
+class Foo: public Debug, public Bar {};
 
 int mutiple_lines_func(
     const int& x,
@@ -19,12 +48,13 @@ int mutiple_lines_func(
     const int& z,
     const std::vector<int>& i32_vec,
     const int& param1,
-    const int& param2) {
+    const int& param2
+) {
     return x + y + z;
 }
 
-/*! 
-什么玩意 
+/*!
+什么玩意
 */
 class AStrangeTypeName {
 public:
@@ -57,12 +87,30 @@ class A:
 public:
     int a;
     int b;
+    /*123*/
+private:
+    int no_need;
 };
 
-template<typename T, typename U>
+#define FOO(x) \
+    do { \
+        static_assert(a_long_expression, "..."); \
+        A_MECRO_CALL(); \
+    } while (0)
+
+class P {
+    LonglonglonglonglonglonglonglonglonglonglonglonglongClassName3
+        long_long_long_long_long_long_long_long_long_long_long_long_long_long_long_long_long_name;
+};
+
+template<
+    typename T,
+    typename ReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReally>
 T func(U a) {}
 
 const int SO_STRANGE = 2;
+using ReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyLongAlias =
+    LonglonglonglonglonglonglonglonglonglonglonglonglongClassName1;
 
 #define MIN(x, y) (x) < (y) ? (x) : (y)
 
@@ -84,12 +132,16 @@ int main() {
     if (foo.a > 0.f && really_really_really_really_really_really_really_long_exp
         && really_really_really_really_really_really_really_long_exp)
     {
+        using namespace std;
+        using namespace boost;
+
         foo.b = 2;
     }
 
     foo(
         bar(really_really_really_really_really_really_really_long_exp,
-            really_really_really_really_really_really_really_long_exp))
+            really_really_really_really_really_really_really_long_exp)
+    )
 
         Foo f = Foo { 1, 2, 3 };
     return foo.a;

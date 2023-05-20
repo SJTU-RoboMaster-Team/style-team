@@ -10,546 +10,187 @@
 
 同一类别的头文件按照字典序排列。
 
-`using` 声明和 `namespace` 别名（指 `namespace a = b;`，不是 `namespace { ... }`）应必须放在其作用域中其他语句的前面。同一类别的声明按照字典序排列。
+`using` （指 `using a::b;` 和 `using namespace a;`，不是类型别名 `using a = b;`）应必须放在其作用域中其他语句的前面。同一类别的声明按照字典序排列。
 
 格式化工具应该让以上排序方法是可选的。
 
 ### 函数定义
 
-在函数签名内部不要加注释。
+在函数签名内部避免加注释。
 
-If the function signature does not fit on one line, then break after the opening
-parenthesis and before the closing parenthesis and put each argument on its own
-block-indented line. For example,
+如果函数的签名不能放在一行内，就在左小括号后和右小括号前换行，而且每个参数独占块缩进的一行。例如：
 
 ```cpp
-fn foo(
-    arg1: i32,
-    arg2: i32,
-) -> i32 {
+int foo(
+    int arg1,
+    int arg2,
+) {
     ...
 }
 ```
 
-Note the trailing comma on the last argument.
+### 枚举
 
-
-### Tuples and tuple structs
-
-Write the type list as you would a parameter list to a function.
-
-Build a tuple or tuple struct as you would call a function.
-
-#### Single-line
+在声明中，每个枚举成员独占一行，并使用块缩进。
 
 ```cpp
-struct Bar(Type1, Type2);
-
-let x = Bar(11, 22);
-let y = (11, 22, 33);
+enum class FooBar {
+    FIRST,
+    SECOND,
+    ERROR,
+};
 ```
 
-### Enums
+### 结构体和联合体
 
-In the declaration, put each variant on its own line, block indented.
-
-Format each variant accordingly as either a struct, tuple struct, or identifier,
-which doesn't require special formatting (but without the `struct` keyword.
-
-```cpp
-enum FooBar {
-    First(u32),
-    Second,
-    Error {
-        err: Box<Error>,
-        line: u32,
-    },
-}
-```
-
-If a struct variant is [*small*](#small-items), it may be formatted on
-one line. In this case, do not use a trailing comma for the field list, but do
-put spaces around each brace:
-
-```cpp
-enum FooBar {
-    Error { err: Box<Error>, line: u32 },
-}
-```
-
-In an enum with multiple struct variants, if any struct variant is written on
-multiple lines, then the multi-line formatting should be used for all struct
-variants. However, such a situation might be an indication that you should
-factor out the fields of the variant into their own struct.
-
-
-### Structs and Unions
-
-Struct names follow on the same line as the `struct` keyword, with the opening
-brace on the same line when it fits within the right margin. All struct fields
-are indented once and end with a trailing comma. The closing brace is not
-indented and appears on its own line.
+结构体的名字在同一行尾随 `struct` 关键字，当左大括号能被放在右边距内时，左小括号也在同一行。所有结构体字段缩进一次。右大括号不缩进，且独占一行。
 
 ```cpp
 struct Foo {
-    a: A,
-    b: B,
-}
+    A a;
+    B b;
+};
 ```
 
-If and only if the type of a field does not fit within the right margin, it is
-pulled down to its own line and indented again.
+当且仅当变量名不能放在右边距内时，它才被放在下一行，并再次缩进。
 
-```cpp
+```rust
 struct Foo {
-    a: A,
-    long_name: 
-        LongType,
-}
+    A a;
+    LongType
+        long_name;
+};
 ```
 
-Prefer using a unit struct (e.g., `struct Foo;`) to an empty struct (e.g.,
-`struct Foo();` or `struct Foo {}`, these only exist to simplify code
-generation), but if you must use an empty struct, keep it on one line with no
-space between the braces: `struct Foo;` or `struct Foo {}`.
-
-The same guidelines are used for untagged union declarations.
+对于联合体也使用同样的规范。
 
 ```cpp
 union Foo {
-    a: A,
-    b: B,
-    long_name: 
-        LongType,
-}
+    A a;
+    B b;
+    LongType
+        long_name;
+};
 ```
 
+### 类
 
-### Tuple structs
-
-Put the whole struct on one line if possible. Types in the parentheses should be
-separated by a comma and space with no trailing comma. No spaces around the
-parentheses or semi-colon:
+类中的条目使用块缩进。如果没有条目，则类可以被格式化为单行。否则在左大括号后和右大括号前应换行。访问修饰符不缩进。当访问修饰符开始一个新的逻辑块时添加空行。
 
 ```cpp
-pub struct Foo(String, u8);
+class Foo {};
+
+class Bar {
+public:
+    A a;
+    B b;
+
+private:
+    C c;
+};
 ```
 
-Prefer unit structs to empty tuple structs (these only exist to simplify code
-generation), e.g., `struct Foo;` rather than `struct Foo();`.
-
-For more than a few fields, prefer a proper struct with named fields. Given
-this, a tuple struct should always fit on one line. If it does not, block format
-the fields with a field on each line and a trailing comma:
+如果类型有父类，则在冒号后和每个逗号后有一个空格，例如，
 
 ```cpp
-pub struct Foo(
-    String,
-    u8,
-);
+class Foo: public Debug, public Bar {};
 ```
 
-
-### Traits
-
-Trait items should be block-indented. If there are no items, the trait may be
-formatted on a single line. Otherwise there should be line-breaks after the
-opening brace and before the closing brace:
+在父类列表中最好不要换行。如果要换行，每个父类独占一行，左大括号也独占一行。
 
 ```cpp
-trait Foo {}
-
-pub trait Bar {
-    ...
-}
-```
-
-If the trait has bounds, there should be a space after the colon but not before
-and before and after each `+`, e.g.,
-
-```cpp
-trait Foo: Debug + Bar {}
-```
-
-Prefer not to line-break in the bounds if possible (consider using a `where`
-clause). Prefer to break between bounds than to break any individual bound. If
-you must break the bounds, put each bound (including the first) on its own
-block-indented line, break before the `+` and put the opening brace on its own
-line:
-
-```cpp
-pub trait IndexRanges:
-    Index<Range<usize>, Output=Self>
-    + Index<RangeTo<usize>, Output=Self>
-    + Index<RangeFrom<usize>, Output=Self>
-    + Index<RangeFull, Output=Self>
+class IndexRanges:
+    public Index<Range<size_t>, Output>,
+    public Index<RangeTo<size_t>, Output>,
+    public Index<RangeFrom<size_t>, Output>,
+    public Index<RangeFull, Output>
 {
     ...
 }
 ```
 
+### #include
 
-### Impls
+`#include <foo>`
 
-Impl items should be block indented. If there are no items, the impl may be
-formatted on a single line. Otherwise there should be line-breaks after the
-opening brace and before the closing brace:
+`include` 后有一个空格。井号后、尖括号与头文件之间没有空格。
 
-```cpp
-impl Foo {}
-
-impl Bar for Foo {
-    ...
-}
-```
-
-Avoid line-breaking in the signature if possible. If a line break is required in
-a non-inherent impl, break immediately before `for`, block indent the concrete type
-and put the opening brace on its own line:
+### 命名空间
 
 ```cpp
-impl Bar
-    for Foo
-{
-    ...
-}
-```
-
-
-### Extern crate
-
-`extern crate foo;`
-
-Use spaces around keywords, no spaces around the semi-colon.
-
-
-### Modules
-
-```cpp
-mod foo {
+namespace foo {
 }
 ```
 
 ```cpp
-mod foo;
+namespace bar = foo;
 ```
 
-Use spaces around keywords and before the opening brace, no spaces around the
-semi-colon.
+在关键字、左大括号前和 `=` 两边使用空格。分号两边没有空格。
 
-### macro\_rules!
+### #define
 
-Use `{}` for the full definition of the macro.
+当宏的完整定义包含多条语句时，用 `do {} while(0)` 包含语句块。反斜杠续航符与语句之间有一个空格。
 
 ```cpp
-macro_rules! foo {
-}
+#define FOO(x) \
+    do { \
+        static_assert( \
+            a_long_expression, \
+            "..." \
+        ); \
+        A_MACRO_CALL(); \
+    } while (0)
 ```
 
+### 泛型
 
-### Generics
+模板参数部分与定义部分之间应换行。最好把模板参数部分放在同一行。
 
-Prefer to put a generics clause on one line. Break other parts of an item
-declaration rather than line-breaking a generics clause. If a generics clause is
-large enough to require line-breaking, you should prefer to use a `where` clause
-instead.
-
-Do not put spaces before or after `<` nor before `>`. Only put a space after `>`
-if it is followed by a word or opening brace, not an opening parenthesis. There
-should be a space after each comma and no trailing comma.
+在尖括号两边不要加空格。每个逗号后面应有一个空格。
 
 ```cpp
-fn foo<T: Display, U: Debug>(x: Vec<T>, y: Vec<U>) ...
+template<typename T, typename U>
+void foo(const std::vector<T>& x, const std::vector<U>& y) ...
 
-impl<T: Display, U: Debug> SomeType<T, U> { ...
+template<typename T, typename U>
+class SomeType { ...
 ```
 
-If the generics clause must be formatted across multiple lines, each parameter
-should have its own block-indented line, there should be newlines after the
-opening bracket and before the closing bracket, and there should be a trailing
-comma.
+如果模板参数部分必须被格式化为多行，则每个参数应该独占一行且缩进一次，左尖括号后应换行。
 
 ```cpp
-fn foo<
-    T: Display,
-    U: Debug,
->(x: Vec<T>, y: Vec<U>) ...
+template<
+    typename T,
+    typename U>
+void foo(const std::vector<T>& x, const std::vector<U>& y) ...
 ```
 
-If an associated type is bound in a generic type, then there should be spaces on
-either side of the `=`:
+对于泛型参数，最好使用一个字母命名。
+
+### 类型别名
+
+类型别名通常应该写在一行内。如果有必要换行，则在 `=` 后换行。`=` 右边的名称应使用块缩进。
 
 ```cpp
-<T: Example<Item = u32>>
-```
-
-Prefer to use single-letter names for generic parameters.
-
-
-### `where` clauses
-
-These rules apply for `where` clauses on any item.
-
-A `where` clause may immediately follow a closing bracket of any kind.
-Otherwise, it must start a new line, with no indent. Each component of a `where`
-clause must be on its own line and be block indented. There should be a trailing
-comma, unless the clause is terminated with a semicolon. If the `where` clause
-is followed by a block (or assignment), the block should be started on a new
-line. Examples:
-
-```cpp
-fn function<T, U>(args)
-where
-    T: Bound,
-    U: AnotherBound,
-{
-    body
-}
-
-fn foo<T>(
-    args
-) -> ReturnType
-where
-    T: Bound,
-{
-    body
-}
-
-fn foo<T, U>(
-    args,
-) where
-    T: Bound,
-    U: AnotherBound,
-{
-    body
-}
-
-fn foo<T, U>(
-    args
-) -> ReturnType
-where
-    T: Bound,
-    U: AnotherBound;  // Note, no trailing comma.
-
-// Note that where clauses on `type` aliases are not enforced and should not
-// be used.
-type Foo<T>
-where
-    T: Bound
-= Bar<T>;
-```
-
-If a `where` clause is very short, we recommend using an inline bound on the
-type parameter.
-
-
-If a component of a `where` clause is long, it may be broken before `+` and
-further block indented. Each bound should go on its own line. E.g.,
-
-```cpp
-impl<T: ?Sized, Idx> IndexRanges<Idx> for T
-where
-    T: Index<Range<Idx>, Output = Self::Output>
-        + Index<RangeTo<Idx>, Output = Self::Output>
-        + Index<RangeFrom<Idx>, Output = Self::Output>
-        + Index<RangeInclusive<Idx>, Output = Self::Output>
-        + Index<RangeToInclusive<Idx>, Output = Self::Output> + Index<RangeFull>
-```
-
-#### Option - `where_single_line`
-
-`where_single_line` is `false` by default. If `true`, then a where clause with
-exactly one component may be formatted on a single line if the rest of the
-item's signature is also kept on one line. In this case, there is no need for a
-trailing comma and if followed by a block, no need for a newline before the
-block. E.g.,
-
-```cpp
-// May be single-lined.
-fn foo<T>(args) -> ReturnType
-where T: Bound {
-    body
-}
-
-// Must be multi-lined.
-fn foo<T>(
-    args
-) -> ReturnType
-where
-    T: Bound,
-{
-    body
-}
-```
-
-
-### Type aliases
-
-Type aliases should generally be kept on one line. If necessary to break the
-line, do so after the `=`; the right-hand-side should be block indented:
-
-```cpp
-pub type Foo = Bar<T>;
+using Foo = Bar<T>;
 
 // If multi-line is required
-type VeryLongType<T, U: SomeBound> =
+using VeryLongType<T, U> =
     AnEvenLongerType<T, U, Foo<T>>;
 ```
 
-Where possible avoid `where` clauses and keep type constraints inline. Where
-that is not possible split the line before and after the `where` clause (and
-split the `where` clause as normal), e.g.,
+### extern "C" 条目
+
+当编写 extern "C" 条目时，总是使用显式 ABI。比如，使用 `extern "C" void func` 而不是 `extern "C" { ... }`。
+
+### `using` 语句
+
+最好把 `using` 语句可以被格式化为单行。
 
 ```cpp
-type VeryLongType<T, U>
-where
-    T: U::AnAssociatedType,
-    U: SomeBound,
-= AnEvenLongerType<T, U, Foo<T>>;
+using a::b::c;
+using namespace a::b::d;
 ```
 
-
-### Associated types
-
-Associated types should follow the guidelines above for type aliases. Where an
-associated type has a bound, there should be a space after the colon but not
-before:
-
-```cpp
-pub type Foo: Bar;
-```
-
-
-### extern items
-
-When writing extern items (such as `extern "C" fn`), always be explicit about
-the ABI. For example, write `extern "C" fn foo ...`, not `extern fn foo ...`, or
-`extern "C" { ... }`.
-
-
-### Imports (`use` statements)
-
-If an import can be formatted on one line, do so. There should be no spaces
-around braces.
-
-```cpp
-use a::b::c;
-use a::b::d::*;
-use a::b::{foo, bar, baz};
-```
-
-
-#### Large list imports
-
-Prefer to use multiple imports rather than a multi-line import. However, tools
-should not split imports by default (they may offer this as an option).
-
-If an import does require multiple lines (either because a list of single names
-does not fit within the max width, or because of the rules for nested imports
-below), then break after the opening brace and before the closing brace, use a
-trailing comma, and block indent the names.
-
-
-```cpp
-// Prefer
-foo::{long, list, of, imports};
-foo::{more, imports};
-
-// If necessary
-foo::{
-    long, list, of, imports, more,
-    imports,  // Note trailing comma
-};
-```
-
-
-#### Ordering of imports
-
-A *group* of imports is a set of imports on the same or sequential lines. One or
-more blank lines or other items (e.g., a function) separate groups of imports.
-
-Within a group of imports, imports must be sorted ascii-betically. Groups of
-imports must not be merged or re-ordered.
-
-
-E.g., input:
-
-```cpp
-use d;
-use c;
-
-use b;
-use a;
-```
-
-output:
-
-```cpp
-use c;
-use d;
-
-use a;
-use b;
-```
-
-Because of `macro_use`, attributes must also start a new group and prevent
-re-ordering.
-
-Note that tools which only have access to syntax (such as cppfmt) cannot tell
-which imports are from an external crate or the std lib, etc.
-
-
-#### Ordering list import
-
-Names in a list import must be sorted ascii-betically, but with `self` and
-`super` first, and groups and glob imports last. This applies recursively. For
-example, `a::*` comes before `b::a` but `a::b` comes before `a::*`. E.g.,
-`use foo::bar::{a, b::c, b::d, b::d::{x, y, z}, b::{self, r, s}};`.
-
-
-#### Normalisation
-
-Tools must make the following normalisations:
-
-* `use a::self;` -> `use a;`
-* `use a::{};` -> (nothing)
-* `use a::{b};` -> `use a::b;`
-
-And must apply these recursively.
-
-Tools must not otherwise merge or un-merge import lists or adjust glob imports
-(without an explicit option).
-
-
-#### Nested imports
-
-If there are any nested imports in a list import, then use the multi-line form,
-even if the import fits on one line. Each nested import must be on its own line,
-but non-nested imports must be grouped on as few lines as possible.
-
-For example,
-
-```cpp
-use a::b::{
-    x, y, z,
-    u::{...},
-    w::{...},
-};
-```
-
-
-#### Merging/un-merging imports
-
-An example:
-
-```cpp
-// Un-merged
-use a::b;
-use a::c::d;
-
-// Merged
-use a::{b, c::d};
-```
-
-Tools must not merge or un-merge imports by default. They may offer merging or
-un-merging as an option.
+不要在头文件中使用 `using namespace`。

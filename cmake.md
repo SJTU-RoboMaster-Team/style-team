@@ -1,4 +1,4 @@
-# CMakeLists.txt, *.cmake conventions
+# CMakeLists.txt, *.cmake 规范
 
 ## 格式约定
 

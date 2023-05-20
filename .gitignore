@@ -31,6 +31,7 @@
 *.out
 *.app
 
+# [julyfun]
 # build files
 build/
 
@@ -38,22 +39,17 @@ build/
 log/
 
 # cache files
-.cache/
+*.cache
 __pycache__
 
 # vscode files
 .vscode/
 .VSCodeCounter/
 
-# local test files
-/local.json
-
-# param files
-
 # MacOS files
 .DS_Store
 
-# @from.ROS.gitignore.begin
+# [ROS gitignore]
 # ROS files
 devel/
 logs/
@@ -106,9 +102,8 @@ qtcreator-*
 
 # Catkin custom files
 CATKIN_IGNORE
-# @from.ROS.gitignore.end
 
-# @from.ROS2.gitignore.begin
+# [ROS2 gitignore]
 install/
 log/
 build/
@@ -138,9 +133,8 @@ qtcreator-*
 # Colcon custom files
 COLCON_IGNORE
 AMENT_IGNORE
-# @from.ROS2.gitignore.end
 
-
+# [comment]
 
 # ignore 新文件后, 执行以下命令
 # git rm -r --cached . && git add .
