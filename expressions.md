@@ -10,7 +10,7 @@ void block_as_stmt() {
     {
         a_call_inside_a_block();
 
-        // a comment in a block
+        // 语句块中的一条注释
         return the_value;
     }
 }
@@ -19,7 +19,7 @@ void block_as_expr() {
     auto foo = [&]() {
         a_call_inside_a_block();
 
-        // a comment in a block
+        // 语句块中的一条注释
         return the_value;
     }();
 }
@@ -194,7 +194,7 @@ x.foo().bar().baz(x, y, z);
 
 ```cpp
 int foo = bar
-    .baz?
+    .baz
     .qux();
 ```
 
@@ -211,7 +211,7 @@ x
 
 // 使用
 int foo = x
-    .baz?
+    .baz
     .qux();
 
 foo(

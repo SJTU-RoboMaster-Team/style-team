@@ -6,7 +6,7 @@
 // 块缩进
 a_function_call(
     foo,
-    bar,
+    bar
 );
 
 // 对齐缩进

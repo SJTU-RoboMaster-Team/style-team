@@ -17,6 +17,11 @@ enum class EnumType {
     POS_POS,
 };
 
+std::vector<int> vec = {
+    1,
+    2,
+};
+
 union test {
     char mark;
     long num;

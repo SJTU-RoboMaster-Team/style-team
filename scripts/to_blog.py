@@ -46,10 +46,14 @@ def parse(path) -> str:
                 continue
 
             res += line
+
         for name in son_list:
-            res += parse(di + '/' + name)
-            if name != son_list[-1]:
+            if name != son_list[0]:
+                # 非第一个儿子需加三行
                 res += '\n'
+            # 第一个儿子的位置是正确的
+            res += '---\n\n'
+            res += parse(di + '/' + name)
     return res
 
 
