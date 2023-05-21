@@ -184,9 +184,9 @@ using VeryLongType<T, U> =
 
 当编写 extern "C" 条目时，总是使用显式 ABI。比如，使用 `extern "C" void func` 而不是 `extern "C" { ... }`。
 
-### `using` 语句
+### `using` 声明
 
-最好把 `using` 语句可以被格式化为单行。
+最好把 `using` 声明格式化为单行。
 
 ```cpp
 using a::b::c;
