@@ -1,7 +1,7 @@
 ## 表达式
 ### 语句块
 
-语句块在左大括号 `{` 之后和右大括号 `}` 之前都应有换行符。块前的任何限定符都应与 `{`在同一行，且间隔一个空格。语句块中的内容应使用块缩进。
+语句块在左大括号 `{` 之后和右大括号 `}` 之前都应有换行符。块前的任何限定符都应与 `{` 在同一行，且间隔一个空格。语句块中的内容应使用块缩进。
 
 ```cpp
 void block_as_stmt() {
@@ -33,7 +33,7 @@ void block_as_stmt() {
     {
         #define another_definition
 
-        // a comment in a block
+        // 语句块中的一条注释
         #undef another_definition
     }
     #endif

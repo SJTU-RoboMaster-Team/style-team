@@ -106,7 +106,7 @@ class IndexRanges:
     public Index<RangeFull, Output>
 {
     ...
-}
+};
 ```
 
 ### #include
