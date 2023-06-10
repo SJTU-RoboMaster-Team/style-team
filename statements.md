@@ -25,7 +25,7 @@ Type pattern =
 
 ```cpp
 // 一个注释。
-a_macro(...);
+A_MACRO(...);
 ```
 
 ### 语句中的表达式

@@ -1,6 +1,6 @@
 ![](example.jpg)
 
-[本仓库](https://github.com/SJTU-RoboMaster-Team/style-team)代码规范的参考主要是 [Chromium C++ style guide](http://chromium.googlesource.com/chromium/src/+/HEAD/styleguide/c++/c++.md)，[Google 开源项目风格指南](https://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/)和 [Rust style guide](https://github.com/rust-lang/style-team)。翻译规范参考 [C++ 参考手册](https://zh.cppreference.com/w/%E9%A6%96%E9%A1%B5)，为了让翻译后文档规范且易于阅读，也参考了 Rust 中文翻译项目组的 [Rust 文档翻译指引](https://rustwiki.org/wiki/translate/rust-translation-guide/)。
+[本仓库](https://github.com/SJTU-RoboMaster-Team/style-team)代码规范的参考主要是 [Chromium C++ style guide](http://chromium.googlesource.com/chromium/src/+/HEAD/styleguide/c++/c++.md)，[Google 开源项目风格指南](https://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/)和 [Rust style guide](https://github.com/rust-lang/style-team)。英文部分的翻译规范参考 [C++ 参考手册](https://zh.cppreference.com/w/%E9%A6%96%E9%A1%B5)，为了让翻译后文档规范且易于阅读，也参考了 Rust 中文翻译项目组的 [Rust 文档翻译指引](https://rustwiki.org/wiki/translate/rust-translation-guide/)。
 
 如何自动化地应用这些规范？
 

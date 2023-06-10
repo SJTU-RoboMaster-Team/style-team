@@ -20,12 +20,14 @@ EventLoop::EventLoop(const int& num_completed_connections):
 
 IntVector EventLoop::really_long_function_name(
     const int& really_long_param_name1,
-    int* really_long_param_name2) const {
+    int* really_long_param_name2
+) const {
     const int num_entries = this->get_num_entries();
     if (num_entries < 2) {
         for (int i = 0; i < this->DAYS_IN_WEEK; i++) {
             if ((num_entries < 2 && num_entries < 3)
-                || (num_entries < 4 && num_entries < 5 && num_entries < 6)) {
+                || (num_entries < 4 && num_entries < 5 && num_entries < 6))
+            {
                 // TODO(name@abc.com): xxx
             } else {
                 // do something

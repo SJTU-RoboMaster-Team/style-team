@@ -78,9 +78,9 @@ union Foo {
 类中的条目使用块缩进。如果没有条目，则类可以被格式化为单行。否则在左大括号后和右大括号前应换行。访问修饰符不缩进。当访问修饰符开始一个新的逻辑块时添加空行。
 
 ```cpp
-class Foo {};
+struct Foo {};
 
-class Bar {
+struct Bar {
 public:
     A a;
     B b;
@@ -93,13 +93,13 @@ private:
 如果类型有父类，则在冒号后和每个逗号后有一个空格，例如，
 
 ```cpp
-class Foo: public Debug, public Bar {};
+struct Foo: public Debug, public Bar {};
 ```
 
 在父类列表中最好不要换行。如果要换行，每个父类独占一行，左大括号也独占一行。
 
 ```cpp
-class IndexRanges:
+struct IndexRanges:
     public Index<Range<size_t>, Output>,
     public Index<RangeTo<size_t>, Output>,
     public Index<RangeFrom<size_t>, Output>,
@@ -154,7 +154,7 @@ template<typename T, typename U>
 void foo(const std::vector<T>& x, const std::vector<U>& y) ...
 
 template<typename T, typename U>
-class SomeType { ...
+struct SomeType { ...
 ```
 
 如果模板参数部分必须被格式化为多行，则每个参数应该独占一行且缩进一次，左尖括号后应换行。

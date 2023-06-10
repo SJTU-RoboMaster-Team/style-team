@@ -80,7 +80,7 @@ void fn1() {
 不使用隐式 `this`。
 
 ```cpp
-class A {
+struct A {
 public:
     A(const int& x);
 private: 
@@ -95,30 +95,9 @@ A::A(const int& x) {
 }
 ```
 
-## 对于不含 public 变量的结构体使用 class
+## 使用 struct 而不是 class
 
-```cpp
-struct A {
-public:
-    A() {}
-    Type member; // 由于存在公共变量，使用 struct
-    
-private:
-    int id;
-};
-
-class B {
-public:
-    int method1() { return 0; }
-    void method2() {}
-    int get_id() { return this->id; }
-
-private:
-    int id; // 由于不存在公共变量，使用 class
-};
-```
-
-## 不将 class / struct 作为命名空间使用
+## 不将 struct 作为命名空间使用
 
 ```cpp
 // 使用

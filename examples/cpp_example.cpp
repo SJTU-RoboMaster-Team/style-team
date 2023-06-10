@@ -42,10 +42,10 @@ struct Comma {
     int b;
 };
 
-class Debug {};
-class Bar {};
+struct Debug {};
+struct Bar {};
 
-class Foo: public Debug, public Bar {};
+struct Foo: public Debug, public Bar {};
 
 int mutiple_lines_func(
     const int& x,
@@ -61,7 +61,7 @@ int mutiple_lines_func(
 /*!
 什么玩意
 */
-class AStrangeTypeName {
+struct AStrangeTypeName {
 public:
     int get_member2() {
         int local_variable = 2;
@@ -83,10 +83,10 @@ struct Foo {
     float c;
 };
 
-class LonglonglonglonglonglonglonglonglonglonglonglonglongClassName1 {};
-class LonglonglonglonglonglonglonglonglonglonglonglonglongClassName2 {};
-class LonglonglonglonglonglonglonglonglonglonglonglonglongClassName3 {};
-class A:
+struct LonglonglonglonglonglonglonglonglonglonglonglonglongClassName1 {};
+struct LonglonglonglonglonglonglonglonglonglonglonglonglongClassName2 {};
+struct LonglonglonglonglonglonglonglonglonglonglonglonglongClassName3 {};
+struct A:
     public LonglonglonglonglonglonglonglonglonglonglonglonglongClassName1,
     public LonglonglonglonglonglonglonglonglonglonglonglonglongClassName2 {
 public:
@@ -103,7 +103,7 @@ private:
         A_MECRO_CALL(); \
     } while (0)
 
-class P {
+struct P {
     LonglonglonglonglonglonglonglonglonglonglonglonglongClassName3
         long_long_long_long_long_long_long_long_long_long_long_long_long_long_long_long_long_name;
 };
