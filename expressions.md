@@ -314,7 +314,7 @@ switch (foo) {
         // ...
         break;
     default:
-        // ...;
+        // ...
 }
 ```
 

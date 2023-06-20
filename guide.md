@@ -61,7 +61,7 @@ struct Foo { ... };
 void foo() {} // 条目尾随注释
 
 namespace {
-void foo(/* 参数前的注释 */ x: T) {...}
+void foo(/* 参数前的注释 */ T x) {...}
 }
 ```
 
