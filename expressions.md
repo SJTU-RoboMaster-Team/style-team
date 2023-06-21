@@ -66,7 +66,7 @@ void func() {
 
     // 包含注释
     int cnt1 = [&]() {
-        // comment
+        // 注释
         return 2;
     }();
 
