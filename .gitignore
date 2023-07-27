@@ -134,6 +134,10 @@ qtcreator-*
 COLCON_IGNORE
 AMENT_IGNORE
 
+# [vim]
+*.swp
+.nvimlog
+
 # [comment]
 
 # ignore 新文件后, 执行以下命令
