@@ -11,7 +11,8 @@ HEAD = '---\n' \
     '---\n\n'
 
 ORI_PIC_SUF = r'(jpg|png|jpeg)'
-TAR_PIC_PATH = '/assets/2023-05-20-cpp-style-guide/'
+# TAR_PIC_PATH = '/assets/2023-05-20-cpp-style-guide/'
+TAR_PIC_PATH = 'https://raw.githubusercontent.com/SJTU-RoboMaster-Team/style-team/main/'
 
 
 def parse(path) -> str:

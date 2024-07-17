@@ -2,7 +2,7 @@
 
 [仓库链接](https://github.com/SJTU-RoboMaster-Team/style-team)
 
-这份规范提供类似 rust 的排版。如果你觉得这还挺好看，你可以使用 Clang-Format 自动使用这些规范，不需要手动调整。方法：
+这份规范提供类似 Rust 的排版。如果你觉得这还挺好看，你可以使用 Clang-Format 自动使用这些规范，不需要手动调整。方法：
 
 * 将本仓库的 `.clang-format` 和 `.clang-tidy` 文件拷贝至你的工作区根目录下。
 * 在编辑器中开启 `Clang-Format` 和 `Clang-Tidy` 插件。插件通常默认使用工作区根目录下的配置文件。
