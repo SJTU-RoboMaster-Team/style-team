@@ -1,6 +1,6 @@
 ![](example.jpg)
 
-[仓库链接](https://github.com/SJTU-RoboMaster-Team/style-team)
+[这是仓库链接，含 Format 配置文件](https://github.com/SJTU-RoboMaster-Team/style-team)
 
 这份规范提供类似 Rust 的排版。如果你觉得这还挺好看，你可以使用 Clang-Format 自动使用这些规范，不需要手动调整。方法：
 
